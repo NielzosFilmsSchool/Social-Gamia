@@ -42,3 +42,31 @@ i {
     color: white;
     font-size: 30px;
 }
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menu_2 {
+    background-color: rgb(73, 143, 255); 
+    width: 500px;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 70%;
+    transition: opacity 0.2s;
+
+}
+
+#menu_2:hover {
+    opacity: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+}
