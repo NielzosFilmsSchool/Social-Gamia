@@ -42,3 +42,9 @@ i {
     color: white;
     font-size: 30px;
 }
+
+.community_header {
+    width: 60%;
+    border-bottom: solid 1px gray;
+    text-align: left;
+}

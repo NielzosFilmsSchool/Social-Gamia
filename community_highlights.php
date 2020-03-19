@@ -45,7 +45,38 @@ $pdo = new PDO($dsn, $user, $passwd);
         ?>
     </header></center>
 
-    <main></main>
+    <center><main>
+        <?php
+        try {
+            $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE community_id = '.$_GET["community_id"]);
+            if($stmt->rowCount() == 0) {
+                throw new Exception("No highlights found!");
+            }
+
+            ?>
+            <div class="highlights_container">
+            <?php
+            
+            while($row = $stmt->fetch()) {
+                ?>
+                <div class="highlight">
+                    <h2> <?= $row["caption"] ?> </h2>
+                    <label><?= $row["post_date"] ?></label>
+                    <!--images-->
+                    <label><?= $row["likes"] ?></label>
+                </div>
+                <?php
+            }
+
+            ?>
+            </div>
+            <?php
+
+        } catch(Exception $e) {
+            echo "<h3>".$e->getMessage()."</h3>";
+        }
+        ?>
+    </main></center>
     
     <footer></footer>
 

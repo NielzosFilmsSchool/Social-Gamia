@@ -18,7 +18,7 @@ $pdo = new PDO($dsn, $user, $passwd);
 
     <header></header>
 
-    <main>
+    <center><main>
         <div id="menu">
             <a href="index.php"><i class="fas fa-home"></i></a>
             <a href=""><i class="fas fa-satellite-dish"></i></a>
@@ -46,7 +46,7 @@ $pdo = new PDO($dsn, $user, $passwd);
                     ?>
                     <tr>
                         <td>
-                            <a href="community.php?community_id=<?= $row["id"] ?>"> <?= $row["name"] ?> </a>
+                            <a href="community_highlights.php?community_id=<?= $row["id"] ?>"> <?= $row["name"] ?> </a>
                         </td>
                     </tr>
                     <?php
@@ -57,11 +57,11 @@ $pdo = new PDO($dsn, $user, $passwd);
                 <?php
 
             } catch(Exception $e) {
-                echo "<h3>$e</h3>";
+                echo "<h3>".$e->getMessage()."</h3>";
             }
             ?>
         </div>
-    </main>
+    </main></center>
         
     <footer></footer>
         
