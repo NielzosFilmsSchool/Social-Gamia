@@ -29,19 +29,19 @@ function loggingIn()
 </head>
 <body>
     <header>
-        <h1>Login</h1>
+        
     </header>
-    <main>
+    <center><main class="login_container" >
+        <h1>Login</h1>
         <form method="post">
             <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password"><br>
             <input type="submit" name="submit" value="Login">
         </form>
-        <h4>Not registered?</h4>
-        <form action="register.php">  
-            <input type="submit" name="submit" value="Register here!">
-        </form>
-    </main>
+        <div class="register_container" >
+            <h5>Not registered? Click <a href="register.php">here</a></h5>
+        </div>
+    </main></center>
 </body>
 </html>
 

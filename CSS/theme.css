@@ -3,3 +3,15 @@
     flex-direction: column;
     width: 400px;
 }
+
+body {
+    font-family: "arial";
+}
+
+.login_container {
+    width: 300px;
+    padding: 20px;
+    background-color: #a6d4ff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black;
+}
