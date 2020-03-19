@@ -7,7 +7,7 @@ function loggingIn()
 
     $pdo = new PDO($dsn, $user, $passwd);
     if (isset($_POST['username'])) {
-        $check_attempt = $pdo->prepare("SELECT password FROM users WHERE username=?");
+        $check_attempt = $pdo->prepare("SELECT * FROM users WHERE username=?");
         $check_attempt->execute([$_POST['username']]);
         $check_attempt = $check_attempt->fetch();
         if (!$check_attempt) {
@@ -15,12 +15,13 @@ function loggingIn()
         } else if (!password_verify($_POST['password'], $check_attempt['password'])) {
             throw new Exception("This username and password combination is not registered.");
         } else {
-            setcookie('loggedInUser', $_POST['username'], time() + (86400));
+            setcookie('loggedInUser', $check_attempt['id'], time() + (86400));
             header('Location: index.php');
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@ function loggingIn()
     <main>
         <form method="post">
             <input type="text" name="username" placeholder="Username">
-            <input type="text" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password">
             <input type="submit" name="submit" value="Login">
         </form>
         <h4>Not registered?</h4>
@@ -43,6 +44,7 @@ function loggingIn()
     </main>
 </body>
 </html>
+
 <?php
 try {
     loggingIn();

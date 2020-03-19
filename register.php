@@ -18,6 +18,7 @@ function registeringUser()
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,13 +33,14 @@ function registeringUser()
         <form id="register" method="post">
             <input type="email" name="email" placeholder="Email">
             <input type="text" name="username" placeholder="Username">
-            <input type="text" name="password" placeholder="Password" onchange="checkPass()">
-            <input type="text" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
+            <input type="password" name="password" placeholder="Password" onchange="checkPass()">
+            <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
             <input type="submit" name="submit" value="Register">
         </form>
     </main>
 </body>
 </html>
+
 <?php
 try {
     registeringUser();
