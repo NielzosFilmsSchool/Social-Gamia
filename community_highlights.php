@@ -5,18 +5,24 @@ $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
 ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
+    <div id="menu">
+        <a href="index.php"><i class="fas fa-home"></i></a>
+        <a href=""><i class="fas fa-satellite-dish"></i></a>
+        <a href=""><i class="fas fa-user"></i></a>
+        <a href="community_create.php"><i class="fas fa-plus"></i></a>
+    </div>
     <center><header class="community_header">
+        
         <?php
         try {
             $stmt = $pdo->query('SELECT * FROM communities WHERE id = '.$_GET["community_id"]);
@@ -54,21 +60,22 @@ $pdo = new PDO($dsn, $user, $passwd);
     <center><main>
         <?php
         try {
-            $stmt = $pdo->query('SELECT * FROM question_posts WHERE community_id = '.$_GET["community_id"]);
+            $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE community_id = '.$_GET["community_id"]);
             if($stmt->rowCount() == 0) {
-                throw new Exception("No questions found!");
+                throw new Exception("No highlights found!");
             }
 
             ?>
-            <div class="questions_container">
+            <div class="highlights_container">
             <?php
             
             while($row = $stmt->fetch()) {
                 ?>
-                <div class="question">
-                    <h2> <?= $row["question"] ?> </h2>
-                    <label><?= $row["question_date"] ?></label>
-                    <p><?= $row["description"] ?></p>
+                <div class="highlight">
+                    <h2> <?= $row["caption"] ?> </h2>
+                    <label><?= $row["post_date"] ?></label>
+                    <!--images-->
+                    <label><?= $row["likes"] ?></label>
                 </div>
                 <?php
             }
@@ -86,5 +93,5 @@ $pdo = new PDO($dsn, $user, $passwd);
     <footer></footer>
 
 </body>
-
+<script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </html>
