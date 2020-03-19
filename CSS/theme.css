@@ -15,3 +15,9 @@ body {
     border-radius: 10px;
     box-shadow: 0px 0px 10px black;
 }
+
+#menu {
+    background-color: blue;
+    width: 100px;
+    height: 700px;
+}
