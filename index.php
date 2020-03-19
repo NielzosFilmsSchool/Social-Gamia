@@ -16,26 +16,6 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 <body>
 
-    <style type="text/css">
-        #menu {
-            width: 70px;
-            height: 800px;
-            margin: 0px;
-            background-color: blue; 
-            display: flex;
-            justify-content: space-evenly;
-            flex-direction: column;
-            color: white;
-            align-items: center;
-        }
-
-        i {
-            color: white;
-            font-size: 30px;
-        }
-        
-    </style>
-
     <header></header>
 
     <main>

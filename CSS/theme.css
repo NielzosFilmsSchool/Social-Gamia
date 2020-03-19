@@ -17,7 +17,18 @@ body {
 }
 
 #menu {
-    background-color: blue;
-    width: 100px;
-    height: 700px;
+    width: 70px;
+    height: 800px;
+    margin: 0px;
+    background-color: blue; 
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+}
+
+i {
+    color: white;
+    font-size: 30px;
 }
