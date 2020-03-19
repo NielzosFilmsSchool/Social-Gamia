@@ -6,6 +6,7 @@
 
 body {
     font-family: "arial";
+    height: 2000px;
 }
 
 .login_container {
@@ -17,15 +18,24 @@ body {
 }
 
 #menu {
+    box-shadow: 0px 0px 10px black;
     width: 70px;
-    height: 800px;
+    height: 400px;
     margin: 0px;
-    background-color: blue; 
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     color: white;
     align-items: center;
+    position: absolute;
+    top: 10px;
+    background-color: rgb(73, 143, 255); 
+    opacity: 70%;
+    transition: opacity 0.2s;
+}
+
+#menu:hover {
+    opacity: 100%;
 }
 
 i {

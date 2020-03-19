@@ -20,10 +20,10 @@ $pdo = new PDO($dsn, $user, $passwd);
 
     <main>
         <div id="menu">
-            <a href=""><i class="fas fa-home"></i></a>
+            <a href="index.php"><i class="fas fa-home"></i></a>
             <a href=""><i class="fas fa-satellite-dish"></i></a>
             <a href=""><i class="fas fa-user"></i></a>
-            <a href=""><i class="fas fa-plus"></i></a>
+            <a href="community_create.php"><i class="fas fa-plus"></i></a>
 
         </div>
 
