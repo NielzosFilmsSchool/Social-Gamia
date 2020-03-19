@@ -43,6 +43,12 @@ $pdo = new PDO($dsn, $user, $passwd);
             echo "<h3>$e</h3>";
         }
         ?>
+        <br>
+        <div id='menu_2'>
+            <a href="community_highlights.php?community_id=<?= $_GET["community_id"] ?>">Highlights</a>
+            <a href="community_questions.php?community_id=<?= $_GET["community_id"] ?>">Questions</a>
+            <a href="community_rules.php?community_id=<?= $_GET["community_id"] ?>">Rules</a>
+        </div>
     </header></center>
 
     <main></main>

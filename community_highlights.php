@@ -5,18 +5,24 @@ $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
 ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
+    <div id="menu">
+        <a href="index.php"><i class="fas fa-home"></i></a>
+        <a href=""><i class="fas fa-satellite-dish"></i></a>
+        <a href=""><i class="fas fa-user"></i></a>
+        <a href="community_create.php"><i class="fas fa-plus"></i></a>
+    </div>
     <center><header class="community_header">
+        
         <?php
         try {
             $stmt = $pdo->query('SELECT * FROM communities WHERE id = '.$_GET["community_id"]);
@@ -43,6 +49,12 @@ $pdo = new PDO($dsn, $user, $passwd);
             echo "<h3>$e</h3>";
         }
         ?>
+        <br>
+        <div id='menu_2'>
+            <a href="community_highlights.php?community_id=<?= $_GET["community_id"] ?>">Highlights</a>
+            <a href="community_questions.php?community_id=<?= $_GET["community_id"] ?>">Questions</a>
+            <a href="community_rules.php?community_id=<?= $_GET["community_id"] ?>">Rules</a>
+        </div>
     </header></center>
 
     <center><main>
@@ -81,5 +93,5 @@ $pdo = new PDO($dsn, $user, $passwd);
     <footer></footer>
 
 </body>
-
+<script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </html>

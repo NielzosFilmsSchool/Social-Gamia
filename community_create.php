@@ -36,6 +36,7 @@ function createCommunity()
             <input type="text" name="desc" id="" placeholder="Community description...">
             <input type="submit" name="submit">
         </form>
+
         
     </body>
 </html>
@@ -47,3 +48,4 @@ try {
     echo '<h1>' . $e->getMessage() . '</h1>';
 }
 ?>
+

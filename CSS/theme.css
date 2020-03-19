@@ -6,7 +6,6 @@
 
 body {
     font-family: "arial";
-    height: 2000px;
 }
 
 .login_container {
@@ -45,6 +44,31 @@ i {
 
 .community_header {
     width: 60%;
-    border-bottom: solid 1px gray;
     text-align: left;
+}
+
+#menu_2 {
+    background-color: rgb(73, 143, 255); 
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#menu_2 a {
+    background-color: rgb(73, 143, 255); 
+    transition: background-color 0.2s;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 7px;
+}
+
+#menu_2 a:hover {
+    background-color: rgb(65, 114, 194); 
+}
+
+#menu_2 a {
+    text-decoration: none;
+    color: white;
 }
