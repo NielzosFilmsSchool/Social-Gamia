@@ -1,7 +1,7 @@
 <?php
 function loggingIn() 
 {
-    $dsn = "mysql:host=localhost;dbname=medium";
+    $dsn = "mysql:host=localhost;dbname=social_gamia";
     $user = "root";
     $passwd = "";
 
