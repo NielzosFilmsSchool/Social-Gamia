@@ -17,12 +17,21 @@ body {
 }
 
 .login_container {
-    vertical-align: middle;
+
     width: 300px;
     padding: 20px;
     background-color: #a6d4ff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px black;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .login_container > input {
