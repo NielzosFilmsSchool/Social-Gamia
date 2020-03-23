@@ -27,21 +27,43 @@ function loggingIn()
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
-<body>
+<body class="login_body">
     <header>
         
     </header>
-    <center><main class="login_container" >
-        <h1>Login</h1>
-        <form method="post">
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password"><br>
-            <input type="submit" name="submit" value="Login">
-        </form>
-        <div class="register_container" >
-            <h5>Not registered? Click <a href="register.php">here</a></h5>
+
+  
+            <div class="navbar">
+                <a href="Title">Social Gamia</a>
+
+                <div id="navLeft">
+                    <a href="About-us">About us</a>
+                </div>
         </div>
-    </main></center>
+
+
+    <center><div id="test">
+        <div class="login_container" >
+                <h1>Login</h1>
+            <form method="post">
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password"><br>
+                <input type="submit" name="submit" value="Login">
+            </form>
+            <div class="register_container" >
+                <h5>Not registered? Click <a href="register.php">here</a></h5>
+            </div>
+        </div>
+    </div></center>
+
+    <!--<div class="imgs-container">
+        <img src="IMG/img-test.jpg" id="login-img">
+    </div>-->
+        
+  
+  
+
+
 </body>
 </html>
 

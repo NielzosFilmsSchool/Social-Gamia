@@ -1,14 +1,23 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
 #register {
     display: flex;
     flex-direction: column;
     width: 400px;
 }
-
-body {
-    font-family: "arial";
+  
+  
+.login_body {
+    background-image: url("../IMG/img-test.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .login_container {
+    vertical-align: middle;
     width: 300px;
     padding: 20px;
     background-color: #a6d4ff;
@@ -16,6 +25,60 @@ body {
     box-shadow: 0px 0px 10px black;
 }
 
+.login_container > input {
+    margin-bottom: 10px;
+    color: red;
+}
+
+#nav-wrapper {
+    display: flex;
+    background-color: red;
+    
+    height: fit-content;
+}
+
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+
+
+
+#align {
+    width: fit-content;
+}
+
+
+#loginForm{
+    width: 300px;
+}
+
+#test {
+    position: relative;
+}
+
+.imgs-container > img{
+    width: 98vw;
+    height: 100vh;
+}
 #menu {
     box-shadow: 0px 0px 10px black;
     width: 70px;
@@ -72,3 +135,4 @@ i {
     text-decoration: none;
     color: white;
 }
+  
