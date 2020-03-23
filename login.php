@@ -50,7 +50,7 @@ function loggingIn()
             </form>
             <div class="register_container" >
                 <h5>Not registered? Click <a href="register.php">here</a></h5>
-                <h5>Forgot password? Click <a href="reset.php">here</a></h5>
+                <h5>Forgot password? Click <a href="send_email.php">here</a></h5>
             </div>
         </div>
     </div></center>
