@@ -3,6 +3,7 @@
 
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
 
 <body>

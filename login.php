@@ -40,6 +40,7 @@ function loggingIn()
         </form>
         <div class="register_container" >
             <h5>Not registered? Click <a href="register.php">here</a></h5>
+            <h5>Forgot password? Click <a href="reset.php">here</a></h5>
         </div>
     </main></center>
 </body>
