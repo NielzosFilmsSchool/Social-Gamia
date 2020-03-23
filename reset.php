@@ -17,8 +17,8 @@ function resettingPassword()
         
     }
     if (isset($_POST['email'])) {
-        require("PHPMailer/src/PHPMailer.php");
-        require("PHPMailer/src/SMTP.php");
+        require("PHPMAIL/PHPMailer.php");
+        require("PHPMAIL/SMTP.php");
         echo '<p hidden>';
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->IsSMTP();
