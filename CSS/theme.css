@@ -8,17 +8,30 @@ body {
     flex-direction: column;
     width: 400px;
 }
-
+  
+  
+.login_body {
+    background-image: url("../IMG/img-test.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 
 .login_container {
-    top: 250px;
-    left: 500px;
-    position: absolute;
+
     width: 300px;
     padding: 20px;
     background-color: #a6d4ff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px black;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .login_container > input {
@@ -29,38 +42,38 @@ body {
 #nav-wrapper {
     display: flex;
     background-color: red;
-   
+    
     height: fit-content;
 }
 
 
-  .navbar {
+.navbar {
     overflow: hidden;
     background-color: #333;
     display: flex;
     justify-content: space-between;
-  }
-  
-  .navbar a {
+}
+
+.navbar a {
     float: left;
     font-size: 16px;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
-  
- 
-  .navbar a:hover, .dropdown:hover .dropbtn {
+}
+
+
+.navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red;
-  }
-  
+}
 
 
 
-  #align {
-   width: fit-content;
-  }
+
+#align {
+    width: fit-content;
+}
 
 
 #loginForm{
@@ -131,3 +144,4 @@ i {
     text-decoration: none;
     color: white;
 }
+  
