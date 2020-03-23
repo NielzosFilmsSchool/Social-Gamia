@@ -40,8 +40,8 @@ function loggingIn()
     </div>
 
 
-    <center><div id="test">
-        <div class="login_container" >
+    <center><div id="test center">
+        <div class="login_container center">
             <h1>Login</h1>
             <form method="post">
                 <input type="text" name="username" placeholder="Username">
