@@ -17,10 +17,7 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 <body>
 
-    <header></header>
-
-    <center><main>
-
+    <header>
         <div id="menu">
             <a href="index.php">
                 <div class="tooltip">
@@ -47,7 +44,9 @@ $pdo = new PDO($dsn, $user, $passwd);
                 </div>
             </a>
         </div>
+    </header>
 
+    <center><main class="home_main">
         <div class="communities_container">
             <?php
             try {
@@ -84,6 +83,41 @@ $pdo = new PDO($dsn, $user, $passwd);
                 if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
                     echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
                 }
+            }
+            ?>
+        </div>
+
+        <div class="feed_container">
+            <?php
+            try {
+                // $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC');
+                // if($stmt->rowCount() == 0) {
+                //     throw new Exception("No communities found!");
+                // }
+
+                ?>
+                <table class="feed_table">
+                    <tr>
+                        <th>Feed</th>
+                    </tr>
+                <?php
+                
+                //while($row = $stmt->fetch()) {
+                    ?>
+                    <tr>
+                        <td>
+                            Feed item
+                        </td>
+                    </tr>
+                    <?php
+                //}
+
+                ?>
+                </table>
+                <?php
+
+            } catch(Exception $e) {
+                echo "<h3>".$e->getMessage()."</h3>";
             }
             ?>
         </div>

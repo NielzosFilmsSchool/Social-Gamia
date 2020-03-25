@@ -44,8 +44,9 @@ $pdo = new PDO($dsn, $user, $passwd);
     </div>
 
     <center><header class="community_header">
-        
         <?php
+        
+
         try {
             $stmt = $pdo->query('SELECT * FROM communities WHERE id = '.$_GET["community_id"]);
             if($stmt->rowCount() == 0) {
@@ -65,6 +66,11 @@ $pdo = new PDO($dsn, $user, $passwd);
                     ?>
                     <label>Created by <?= $row_user["username"] ?></label>
                     <?php
+                    if($row["created_user_id"] == $_COOKIE["loggedInUser"]){
+                        ?>
+                        <a class="edit_community" href="community_edit.php?community_id=<?= $_GET["community_id"] ?>">Edit community</a>
+                        <?php
+                    }
                 }
                 ?>
                 <p> <?= $row["description"]?> </p>
