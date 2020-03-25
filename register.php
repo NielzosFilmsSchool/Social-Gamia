@@ -11,6 +11,16 @@ function registeringUser()
             $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $check_attempt = $pdo->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
             $check_attempt->execute([$_POST['email'], $_POST['username'], $hash]);
+
+            //profile page for the user
+            $stmt = $pdo->query('SELECT * FROM users WHERE username = "'.$_POST["username"].'"');
+            while($row = $stmt->fetch()) {
+                $stmt_profile = $pdo->prepare(
+                    "INSERT INTO profile_pages (user_id, title)
+                    VALUES (".$row["id"]." , 'Profile page of ".$_POST["username"]."')"
+                );
+                $stmt_profile->execute();
+            }
         } else {
             throw new Exception("<div style='color: red;'>Invalid Email input</div>");
         }

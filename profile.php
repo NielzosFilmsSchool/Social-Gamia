@@ -1,16 +1,16 @@
 <?php
 class User
 {
-    private $id;
-    private $username;
-    private $email;
-    private $phone;
-    private $post_count;
-    private $comment_count;
-    private $question_count;
-    private $folowing_count;
-    private $folowing_communities;
-    private $folowing_users;
+    public $id;
+    public $username;
+    public $email;
+    public $phone;
+    public $post_count;
+    public $comment_count;
+    public $question_count;
+    public $folowing_count;
+    public $folowing_communities;
+    public $folowing_users;
 
     public function __construct($id, $username, $email){
         $this->username = $username;
@@ -33,17 +33,16 @@ if(!isset($_COOKIE["loggedInUser"])){
 }
 
 try {
-    $stmt = $pdo->query('SELECT * FROM users WHERE id = '.$_GET["loggedInUser"]);
+    $stmt = $pdo->query('SELECT * FROM users WHERE id = '.$_COOKIE["loggedInUser"]);
     if($stmt->rowCount() == 0) {
-        throw new Exception("No rules found!");
+        header('Location: login.php');
     }
     while($row = $stmt->fetch()) {
-        $username = $row[""];
+        $user = new User($row["id"], $row["username"], $row["email"]);
     }
 }catch(Exception $e) {
     echo "<h3>$e</h3>";
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +85,27 @@ try {
         </div>
     </header>
 
-    <main></main>
+    <main class="profile_main">
+        <a class="edit_account" href="profile_edit.php?user_id=<?= $user->id?>">Edit account</a>
+        <?php
+        try {
+            $stmt = $pdo->query('SELECT * FROM profile_pages WHERE user_id = '.$user->id);
+            if($stmt->rowCount() == 0) {
+                throw new Exception("No profile page found!");
+            }
+
+            while($row = $stmt->fetch()){
+                ?>
+                <h1><?= $row["title"]?></h1>
+                <label><?= $user->email?></label>
+                <?php
+            }
+        }catch(Exception $e) {
+            echo "<h3>$e</h3>";
+        }
+        ?>
+
+    </main>
     
     <footer></footer>
 
