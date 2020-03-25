@@ -29,14 +29,13 @@ function resettingPassword()
 </head>
 <body>
     <header>
-        <h1>Register</h1>
-    </header>
-    <main>
-        <form id="register" method="post">
-            <input type="password" name="password" placeholder="New password" onchange="checkPass()">
-            <input type="password" name="passwordCheck" placeholder="Confirm new password" onchange="checkPass()">
-            <input class="disable" type="submit" name="submitpassword" value="Reset password">
-        </form>
+        </header>
+        <main>
+            <form id="register" method="post">
+                <input type="password" name="password" placeholder="New password" onchange="checkPass()">
+                <input type="password" name="passwordCheck" placeholder="Confirm new password" onchange="checkPass()">
+                <input class="disable" type="submit" name="submitpassword" value="Reset password">
+            </form>
     </main>
 </body>
 </html>
