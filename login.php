@@ -25,7 +25,7 @@ function loggingIn()
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="theme.css">
+    <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
 <body class="login_body">
     <header>
