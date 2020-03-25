@@ -42,7 +42,7 @@ function sendingEmail()
 ?>
 
 <!DOCTYPE html>
-<html>
+<html >
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="JS/script.js"></script>
