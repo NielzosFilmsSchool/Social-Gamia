@@ -123,6 +123,7 @@ $pdo = new PDO($dsn, $user, $passwd);
         } catch(Exception $e) {
             echo "<h3>".$e->getMessage()."</h3>";
         }
+        
         ?>
     </main></center>
     
@@ -130,3 +131,15 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 </body>
 </html>
+<?php 
+try {
+    if (!isset($_COOKIE['loggedInUser'])) {
+        throw new Exception("U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.");
+    }
+} catch (Exception $e) {
+    echo "<h3>".$e->getMessage()."</h3>";
+    if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
+        echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
+    }
+}
+?>

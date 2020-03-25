@@ -13,12 +13,15 @@ class User
     private $folowing_users;
 
     public function __construct($id, $username, $email){
-        
+        $this->username = $username;
+        $this->id = $id;
+        $this->email = $email;
     }
 }
 ?>
 
 <?php
+
 $dsn = "mysql:host=localhost;dbname=social_gamia";
 $user = "root";
 $passwd = "";
