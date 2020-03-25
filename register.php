@@ -24,19 +24,24 @@ function registeringUser()
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="JS/script.js"></script>
+    <title>Social Gamia | Register</title>
 </head>
-<body>
+<body class="register_body">
     <header>
-        <h1>Register</h1>
-    </header>
-    <main>
-        <form id="register" method="post">
-            <input type="email" name="email" placeholder="Email">
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password" onchange="checkPass()">
-            <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
-            <input class="disable" type="submit" name="submit" value="Register">
-        </form>
+        </header>
+        <main>
+            <center>
+            <div class="register_container">
+                <h1>Register</h1>
+            	<form id="register" method="post">
+                    <input type="email" name="email" placeholder="Email">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="password" name="password" placeholder="Password" onchange="checkPass()">
+                    <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
+                    <input class="disable" type="submit" name="submit" value="Register">
+                </form>
+        </div>
+            </center>
     </main>
 </body>
 </html>
