@@ -12,9 +12,11 @@ $pdo = new PDO($dsn, $user, $passwd);
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
     <div id="menu">
         <a href="index.php">
             <div class="tooltip">
@@ -41,6 +43,7 @@ $pdo = new PDO($dsn, $user, $passwd);
             </div>
         </a>
     </div>
+
     <center><header class="community_header">
         <?php
         try {

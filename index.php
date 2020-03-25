@@ -12,6 +12,7 @@ $pdo = new PDO($dsn, $user, $passwd);
 <head>
     <title>Social Gamia | Home</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -86,6 +87,5 @@ $pdo = new PDO($dsn, $user, $passwd);
     <footer></footer>
         
 </body>
-<script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
     
 </html>

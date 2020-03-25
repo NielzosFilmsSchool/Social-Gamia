@@ -27,6 +27,7 @@ function createCommunity()
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+        <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
     <body>

@@ -12,6 +12,7 @@ $pdo = new PDO($dsn, $user, $passwd);
     <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -41,7 +42,7 @@ $pdo = new PDO($dsn, $user, $passwd);
             </div>
         </a>
     </div>
-    
+
     <center><header class="community_header">
         
         <?php
@@ -122,5 +123,4 @@ $pdo = new PDO($dsn, $user, $passwd);
     <footer></footer>
 
 </body>
-<script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </html>
