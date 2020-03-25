@@ -11,9 +11,9 @@ function loggingIn()
         $check_attempt->execute([$_POST['username']]);
         $check_attempt = $check_attempt->fetch();
         if (!$check_attempt) {
-            throw new Exception("This username and password combination is not registered.");
+            throw new Exception( "<div style='color: red;'>This username and password combination is not registered.</div>");
         } else if (!password_verify($_POST['password'], $check_attempt['password'])) {
-            throw new Exception("This username and password combination is not registered.");
+            throw new Exception("<div style='color: red;'>This username and password combination is not registered.</div>");
         } else {
             setcookie('loggedInUser', $check_attempt['id'], time() + (86400));
             header('Location: index.php');
@@ -25,7 +25,7 @@ function loggingIn()
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body class="login_body">
     <header>
@@ -40,7 +40,8 @@ function loggingIn()
     </div>
 
 
-    <center><div id="test center">
+    <center>
+        <div id="test center">
         <div class="login_container center">
             <h1>Login</h1>
             <form method="post">
@@ -48,19 +49,21 @@ function loggingIn()
                 <input type="password" name="password" placeholder="Password"><br>
                 <input type="submit" name="submit" value="Login">
             </form>
+                <?php
+                    try {
+                        loggingIn();
+                    } catch (Exception $e) {
+                        echo '<h5>' . $e->getMessage() . '</h5>';
+                    }
+                ?>
             <div class="register_container" >
                 <h5>Not registered? Click <a href="register.php">here</a></h5>
                 <h5>Forgot password? Click <a href="send_email.php">here</a></h5>
             </div>
         </div>
-    </div></center>
+    </div>
+</center>
+    
 </body>
 </html>
 
-<?php
-try {
-    loggingIn();
-} catch (Exception $e) {
-    echo '<h1>' . $e->getMessage() . '</h1>';
-}
-?>
