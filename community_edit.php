@@ -44,7 +44,7 @@ $pdo = new PDO($dsn, $user, $passwd);
             </a>
         </div>
 
-        <h1>Create Community</h1>
+        <h1>Edit Community</h1>
         <form action="community_edit.php?community_id=<?= $_GET["community_id"]?>" method="post">
             <?php
             try {
@@ -75,7 +75,14 @@ $pdo = new PDO($dsn, $user, $passwd);
             }
             ?>
         </form>
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form action="community_delete.php?community_id=<?= $_GET["community_id"]?>" method="POST">
+            <input type="submit" class="danger" value="Delete this community">
+        </form>
         
     </body>
 </html>

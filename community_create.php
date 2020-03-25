@@ -9,8 +9,8 @@ function createCommunity()
     if (isset($_POST['submit'])) {
         if(isset($_POST['name']) && isset($_POST['desc'])){
             $stmt = $pdo->prepare(
-                "INSERT INTO communities (name, description)
-                VALUES ('".$_POST["name"]."', '".$_POST["desc"]."')"
+                "INSERT INTO communities (name, description, created_user_id)
+                VALUES ('".$_POST["name"]."', '".$_POST["desc"]."', ".$_COOKIE["loggedInUser"].")"
             );
             $stmt->execute();
             header('Location: index.php');//redirect to community details
