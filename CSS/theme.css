@@ -212,3 +212,19 @@ i {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.home_main {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+.communities_container {
+    width: 50%;
+    border: 1px solid gray;
+}
+.feed_container {
+    width: 50%;
+    border: 1px solid gray;
+}
