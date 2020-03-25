@@ -1,82 +1,95 @@
 <?php
-function showingProfile() 
+class User
 {
+    private $id;
+    private $username;
+    private $email;
+    private $phone;
+    private $post_count;
+    private $comment_count;
+    private $question_count;
+    private $folowing_count;
+    private $folowing_communities;
+    private $folowing_users;
+
+    public function __construct($id, $username, $email){
+        $this->username = $username;
+        $this->id = $id;
+        $this->email = $email;
+    }
+}
+?>
+
+<?php
+
 $dsn = "mysql:host=localhost;dbname=social_gamia";
 $user = "root";
 $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
-$stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
-$stmt->execute([$_COOKIE['loggedInUser']]);
+
+if(!isset($_COOKIE["loggedInUser"])){
+    header('Location: login.php');
+}
+
+try {
+    $stmt = $pdo->query('SELECT * FROM users WHERE id = '.$_GET["loggedInUser"]);
+    if($stmt->rowCount() == 0) {
+        throw new Exception("No rules found!");
+    }
+    while($row = $stmt->fetch()) {
+        $username = $row[""];
+    }
+}catch(Exception $e) {
+    echo "<h3>$e</h3>";
+}
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title></title>
+    <title>Social Gamia | Profile</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <header></header>
-
-    <center><main>
-        <?php
-        try {
-            if($stmt->rowCount() == 0) {
-                throw new Exception("No information found!");
-            }
-
-            ?>
-            <div>
-            <?php
-            
-            while($row = $stmt->fetch()) {
-                ?>
-                <div>
-                    <h3><?= $row["username"] ?></h3>
-                    <h4><?= $row["email"] ?></h4>
-                    <h4><?= $row["phone"] ?></h4>
-                    <h4><?= $row["posts_count"] ?></h4>
-                    <h4><?= $row["comment_count"] ?></h4>
-                    <h4><?= $row["question_count"] ?></h4>
-                    <h4><?= $row["following_communities"] ?></h4>
-                    <h4><?= $row["following_users"] ?></h4>
+    <header>
+        <div id="menu">
+            <a href="index.php">
+                <div class="tooltip">
+                    <i class="fas fa-home"></i>
+                    <span class="tooltiptext">Home</span>
                 </div>
-                <?php
-            }
+            </a>
+            <a href="communities.php">
+                <div class="tooltip">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span class="tooltiptext">Communities</span>
+                </div>
+            </a>
+            <a href="profile.php">
+                <div class="tooltip">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltiptext">Profile</span>
+                </div>
+            </a>
+            <a href="community_create.php">
+                <div class="tooltip">
+                <i class="fas fa-plus"></i>
+                    <span class="tooltiptext">Create Community</span>
+                </div>
+            </a>
+        </div>
+    </header>
 
-            ?>
-            </div>
-            <?php
-
-        } catch(Exception $e) {
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
-        ?>
-    </main></center>
+    <main></main>
     
     <footer></footer>
 
 </body>
 
 </html>
-<?php
-}
-try {
-    showingProfile();
-} catch (Exception $e) {
-    echo "<h3>".$e->getMessage()."</h3>";
-}
-try {
-    if (!isset($_COOKIE['loggedInUser'])) {
-        throw new Exception("U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.");
-    }
-} catch (Exception $e) {
-    echo "<h3>".$e->getMessage()."</h3>";
-    if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
-        echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
-    }
-}
-?>
