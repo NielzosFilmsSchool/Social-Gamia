@@ -14,13 +14,13 @@ body {
 }
   
   
-.login_body, .register_body, .pass_body {
+.login_body, .register_body, .pass_body ,.reset_body{
     background-image: url("../IMG/img-test.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
-.login_container, .register_container, .pass_recover {
+.login_container, .register_container, .pass_recover ,.reset_container{
 
     width: 300px;
     padding: 20px;
@@ -29,7 +29,7 @@ body {
     box-shadow: 0px 0px 10px black;
 }
 
-.register_container, .pass_recover {
+.register_container, .pass_recover , .reset_container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,14 +37,15 @@ body {
 }
 
 
-.login_container h1, .register_container h1, .pass_recover h1{
+.login_container h1, .register_container h1, .pass_recover h1, .reset_container h2{
     text-transform: uppercase;
     color: white;
 }
 
 .login_container input[type="text"],.login_container input[type="password"], 
 .register_container input[type="text"], .register_container input[type="password"], 
-.register_container input[type="email"], .pass_recover input[type="email"]{
+.register_container input[type="email"], .pass_recover input[type="email"],
+.reset_container input[type="password"]{
 
     border: 0;
     border: 2px solid #3498db;
@@ -58,13 +59,14 @@ body {
 
 .login_container input[type="text"]:focus,.login_container input[type="password"]:focus,
  .register_container input[type="text"]:focus, .register_container input[type="password"]:focus,
-  .register_container input[type="email"]:focus, .pass_recover input[type="email"]:focus  {
+  .register_container input[type="email"]:focus, .pass_recover input[type="email"]:focus,
+  .reset_container input[type="password"]:focus  {
     width: 280px;
     border-color: #2ecc71;
 }
 
 
-.login_container input[type="submit"], .register_container input[type="submit"], .pass_recover input[type="submit"] {
+.login_container input[type="submit"], .register_container input[type="submit"], .pass_recover input[type="submit"],.reset_container input[type="submit"] {
     border: 0;
     border: 2px solid #2ecc71;
     text-align: center;
@@ -78,7 +80,7 @@ body {
 }
 
 
-.login_container input[type="submit"]:hover, .register_container input[type="submit"]:hover, .pass_recover input[type="submit"]:hover {
+.login_container input[type="submit"]:hover, .register_container input[type="submit"]:hover, .pass_recover input[type="submit"]:hover,.reset_container input[type="submit"]:hover{
 
     background: #2ecc71;
  
