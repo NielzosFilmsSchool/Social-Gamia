@@ -35,7 +35,7 @@ function registeringUser()
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password" onchange="checkPass()">
             <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
-            <input type="submit" name="submit" value="Register">
+            <input class="disable" type="submit" name="submit" value="Register">
         </form>
     </main>
 </body>

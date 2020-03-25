@@ -35,7 +35,7 @@ function resettingPassword()
         <form id="register" method="post">
             <input type="password" name="password" placeholder="New password" onchange="checkPass()">
             <input type="password" name="passwordCheck" placeholder="Confirm new password" onchange="checkPass()">
-            <input type="submit" name="submitpassword" value="Reset password">
+            <input class="disable" type="submit" name="submitpassword" value="Reset password">
         </form>
     </main>
 </body>
