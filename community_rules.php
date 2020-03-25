@@ -85,12 +85,27 @@ $pdo = new PDO($dsn, $user, $passwd);
     </header></center>
 
     <main class="community_main">
-        <form action="community_rules.php?community_id=<?= $_GET["community_id"] ?>" method="POST">
-            <input type="text" name="rule" placeholder="Rule...">
-            <input type="submit" name="add_rule" value="Add Rule">
-        </form>
 
         <?php
+        try {
+            $stmt = $pdo->query('SELECT * FROM communities WHERE id = '.$_GET["community_id"]);
+            if($stmt->rowCount() == 0) {
+                throw new Exception("No rules found!");
+            }
+            while($row = $stmt->fetch()) {
+                if($row["created_user_id"] == $_COOKIE["loggedInUser"]){
+                    ?>
+                    <form action="community_rules.php?community_id=<?= $_GET["community_id"] ?>" method="POST">
+                        <input type="text" name="rule" placeholder="Rule...">
+                        <input type="submit" name="add_rule" value="Add Rule">
+                    </form>
+                    <?php
+                }
+            }
+        } catch (Exception $e) {
+            echo "<h3>$e</h3>";
+        }
+        
         try {
             $stmt = $pdo->query('SELECT rules FROM communities WHERE id = '.$_GET["community_id"]);
             if($stmt->rowCount() == 0) {
