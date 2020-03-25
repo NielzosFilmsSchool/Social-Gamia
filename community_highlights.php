@@ -16,7 +16,7 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 <body>
     <div id="menu">
-        <a href="index.php"><i class="fas fa-home"></i></a>
+        <a href="index.php"><i class="fas fa-home" id="home"></i></a>
         <a href=""><i class="fas fa-satellite-dish"></i></a>
         <a href=""><i class="fas fa-user"></i></a>
         <a href="community_create.php"><i class="fas fa-plus"></i></a>
@@ -37,6 +37,14 @@ $pdo = new PDO($dsn, $user, $passwd);
             while($row = $stmt->fetch()) {
                 ?>
                 <h1> <?= $row["name"] ?> </h1>
+                <?php
+                $stmt_user = $pdo->query('SELECT * FROM users WHERE id = '.$row["created_user_id"]);
+                while($row_user = $stmt_user->fetch()) {
+                    ?>
+                    <label>Created by <?= $row_user["username"] ?></label>
+                    <?php
+                }
+                ?>
                 <p> <?= $row["description"]?> </p>
                 <?php
             }

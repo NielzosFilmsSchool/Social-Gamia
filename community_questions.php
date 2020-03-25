@@ -31,6 +31,14 @@ $pdo = new PDO($dsn, $user, $passwd);
             while($row = $stmt->fetch()) {
                 ?>
                 <h1> <?= $row["name"] ?> </h1>
+                <?php
+                $stmt_user = $pdo->query('SELECT * FROM users WHERE id = '.$row["created_user_id"]);
+                while($row_user = $stmt_user->fetch()) {
+                    ?>
+                    <label>Created by <?= $row_user["username"] ?></label>
+                    <?php
+                }
+                ?>
                 <p> <?= $row["description"]?> </p>
                 <?php
             }
