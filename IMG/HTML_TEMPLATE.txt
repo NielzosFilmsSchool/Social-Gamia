@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Social Gamia | Profile</title>
+    <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
 

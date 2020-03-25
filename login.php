@@ -25,6 +25,7 @@ function loggingIn()
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Social Gamia | Login</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
 <body class="login_body">

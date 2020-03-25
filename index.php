@@ -10,7 +10,7 @@ $pdo = new PDO($dsn, $user, $passwd);
 <html>
 
 <head>
-    <title>Home</title>
+    <title>Social Gamia | Home</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
 </head>
 
@@ -19,12 +19,32 @@ $pdo = new PDO($dsn, $user, $passwd);
     <header></header>
 
     <center><main>
-        <div id="menu">
-            <a href="index.php"><i class="fas fa-home"></i></a>
-            <a href=""><i class="fas fa-satellite-dish"></i></a>
-            <a href=""><i class="fas fa-user"></i></a>
-            <a href="community_create.php"><i class="fas fa-plus"></i></a>
 
+        <div id="menu">
+            <a href="index.php">
+                <div class="tooltip">
+                    <i class="fas fa-home"></i>
+                    <span class="tooltiptext">Home</span>
+                </div>
+            </a>
+            <a href="communities.php">
+                <div class="tooltip">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span class="tooltiptext">Communities</span>
+                </div>
+            </a>
+            <a href="profile.php">
+                <div class="tooltip">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltiptext">Profile</span>
+                </div>
+            </a>
+            <a href="community_create.php">
+                <div class="tooltip">
+                <i class="fas fa-plus"></i>
+                    <span class="tooltiptext">Create Community</span>
+                </div>
+            </a>
         </div>
 
         <div class="communities_container">
