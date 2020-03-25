@@ -33,11 +33,12 @@ function loggingIn()
     </header>
 
     <div class="navbar">
-        <a href="Title">Social Gamia</a>
 
-        <div id="navLeft">
-            <a href="About-us">About us</a>
+    <div id="brand">
+        <div id="title">Social Gamia</div>
         </div>
+        
+     
     </div>
 
 
