@@ -259,3 +259,18 @@ i {
 .danger:hover {
     background-color: rgb(160, 34, 34);
 }
+
+.profile_main {
+    position: relative;
+    padding: 20px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+}
+.edit_account {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
