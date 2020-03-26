@@ -46,17 +46,21 @@ function sendingEmail()
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="JS/script.js"></script>
+    <title>Social Gamia | Password Recovery </title>
 </head>
-<body>
+<body class="pass_body">
     <header>
-        <h1>Password recovery</h1>
     </header>
-    <main>
-        <form id="register" method="post">
-            <input type="email" name="email" placeholder="Email of your account">
-            <input type="submit" name="submitemail" value="Send recovery email">
-        </form>
-    </main>
+        <center>
+            <div class="pass_recover">
+                <h1>Password recovery</h1>
+                <form id="register" method="post">
+                    <input type="email" name="email" placeholder="Email of your account">
+                    <input type="submit" name="submitemail" value="Send recovery email">
+                </form>
+            </div>
+        </center>
+
 </body>
 </html>
 

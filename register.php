@@ -22,7 +22,7 @@ function registeringUser()
                 $stmt_profile->execute();
             }
         } else {
-            throw new Exception("Invalid Email input");
+            throw new Exception("<div style='color: red;'>Invalid Email input</div>");
         }
         
     }
@@ -48,6 +48,14 @@ function registeringUser()
                     <input type="text" name="username" placeholder="Username">
                     <input type="password" name="password" placeholder="Password" onchange="checkPass()">
                     <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
+
+                    <?php
+                        try {
+                            registeringUser();
+                        } catch (Exception $e) {
+                            echo '<h5>' . $e->getMessage() . '</h5>';
+                        }
+                    ?>
                     <input class="disable" type="submit" name="submit" value="Register">
                 </form>
         </div>
@@ -56,10 +64,3 @@ function registeringUser()
 </body>
 </html>
 
-<?php
-try {
-    registeringUser();
-} catch (Exception $e) {
-    echo '<h1>' . $e->getMessage() . '</h1>';
-}
-?>
