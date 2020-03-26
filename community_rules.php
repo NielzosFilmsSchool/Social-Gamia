@@ -28,7 +28,7 @@ $pdo = new PDO($dsn, $user, $passwd);
                 <span class="tooltiptext">Communities</span>
             </div>
         </a>
-        <a href="profile.php">
+        <a href="profile.php?user=<?= $_COOKIE["loggedInUser"]?>">
             <div class="tooltip">
                 <i class="fas fa-user"></i>
                 <span class="tooltiptext">Profile</span>
