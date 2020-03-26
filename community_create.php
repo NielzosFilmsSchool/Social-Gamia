@@ -67,9 +67,7 @@ function createCommunity()
             </form>
         </div>
 
-    <div id="create-btn">
-        <button class="button popup">Create Community</button>
-    </div>    
+    
     </body>
 </html>
 
