@@ -265,6 +265,24 @@ i {
     background-color: rgb(160, 34, 34);
 }
 
+.green {
+    background-color: rgb(49, 255, 46);
+    border: 1px solid rgb(37, 191, 35);
+    border-radius: 1px;
+}
+.green:hover {
+    background-color: rgb(38, 162, 36);
+}
+
+.blue {
+    background-color: rgb(46, 161, 255);
+    border: 1px solid rgb(37, 127, 200);
+    border-radius: 1px;
+}
+.blue:hover {
+    background-color: rgb(34, 106, 165);
+}
+
 .profile_main {
     position: relative;
     padding: 20px;
@@ -280,9 +298,34 @@ i {
     top: 40px;
 }
 
+
+.edit_profile {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+}
+
+.margin_top {
+    margin-top: 20px;
+}
+
+.padding {
+    padding: 5px;
+}
+
+.relative {
+    position: relative;
+}
+
+.delete {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
 /* Community Create Css*/
 
 .popup {
 
     border: 2px solid turquoise;
 }
+/* End */

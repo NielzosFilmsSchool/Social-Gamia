@@ -33,7 +33,7 @@ if(!isset($_COOKIE["loggedInUser"])){
 }
 
 try {
-    $stmt = $pdo->query('SELECT * FROM users WHERE id = '.$_COOKIE["loggedInUser"]);
+    $stmt = $pdo->query('SELECT * FROM users WHERE id = '.$_GET["user"]);
     if($stmt->rowCount() == 0) {
         header('Location: login.php');
     }
@@ -49,9 +49,11 @@ try {
 <html>
 
 <head>
-    <title>Social Gamia | Profile</title>
+    <title>Social Gamia | <?= $user->username?>'s profile</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="JS/profile_script.js"></script>
 </head>
 
 <body>
@@ -70,7 +72,7 @@ try {
                     <span class="tooltiptext">Communities</span>
                 </div>
             </a>
-            <a href="profile.php">
+            <a href="profile.php?user=<?= $_COOKIE["loggedInUser"]?>">
                 <div class="tooltip">
                     <i class="fas fa-user"></i>
                     <span class="tooltiptext">Profile</span>
@@ -86,8 +88,13 @@ try {
     </header>
 
     <main class="profile_main">
-        <a class="edit_account" href="profile_edit.php?user_id=<?= $user->id?>">Edit account</a>
         <?php
+        if($user->id == $_COOKIE["loggedInUser"]) {
+        ?>
+            <a class="edit_account" href="account_edit.php?user_id=<?= $user->id?>">Edit account</a>
+        <?php
+        }
+
         try {
             $stmt = $pdo->query('SELECT * FROM profile_pages WHERE user_id = '.$user->id);
             if($stmt->rowCount() == 0) {
@@ -95,10 +102,50 @@ try {
             }
 
             while($row = $stmt->fetch()){
+                $profile_id = $row["id"];
                 ?>
-                <h1><?= $row["title"]?></h1>
-                <label><?= $user->email?></label>
+                <div class="profile_page_content">
+                    <?php
+                    if($user->id == $_COOKIE["loggedInUser"]) {
+                        ?>
+                        <div contenteditable="true">
+                        <?php
+                    } else {
+                        ?>
+                        <div contenteditable="false">
+                        <?php
+                    }
+                    ?>
+                        <h1 id="profile_page_title"><?= $row["title"]?></h1>
+                    </div>
+                    <!-- PROFILE PAGE CONTENT START -->
+                    <div id="profile_page_content">
+                        <?php
+                        $html = $row["html"];
+                        if($user->id != $_COOKIE["loggedInUser"]) {
+                            $html = str_replace( 'contenteditable="true"', 'contenteditable="false"', $html);
+                            $html = str_replace( '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>', '', $html);
+                        }
+                        echo $html;
+                        ?>
+                    </div>
+                    <!-- PROFILE PAGE CONTENT END -->
+                </div>
                 <?php
+                if($user->id == $_COOKIE["loggedInUser"]) {
+                    ?>
+                    <div class="profile_page_controls">
+                        <select id="element_to_add" class="blue padding">
+                            <option value="text">Text</option>
+                            <option value="photo">Photo</option>
+                            <option value="video">Video</option>
+                        </select>
+                        <button class="margin_top blue padding" onclick="addHtml()">Add selected element</button>
+                        <br>
+                        <button class="green padding" onclick="getHtml(<?= $_GET['user']?>)">Save changes</button>
+                    </div>
+                    <?php
+                }
             }
         }catch(Exception $e) {
             echo "<h3>$e</h3>";
@@ -110,5 +157,20 @@ try {
     <footer></footer>
 
 </body>
-
 </html>
+
+<?php
+//saving changes to profile page
+
+if(isset($_POST["profile_html"]) && $user->id == $_COOKIE["loggedInUser"]) {
+    $profile_html = $_POST["profile_html"];
+    $profile_title = $_POST["profile_title"];
+    $stmt = $pdo->prepare(
+        "UPDATE profile_pages
+        SET html = '$profile_html', title = '$profile_title'
+        WHERE id = ".$profile_id
+    );
+    $stmt->execute();
+    header("Refresh:1");
+}
+?>
