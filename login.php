@@ -47,6 +47,7 @@ function loggingIn()
         <div class="login_container center">
             <h1>Login</h1>
             <form method="post">
+               
                 <input type="text" name="username" placeholder="Username">
                 <input type="password" name="password" placeholder="Password"><br>
                 <input type="submit" name="submit" value="Login">

@@ -279,3 +279,10 @@ i {
     right: 20px;
     top: 40px;
 }
+
+/* Community Create Css*/
+
+.popup {
+
+    border: 2px solid turquoise;
+}
