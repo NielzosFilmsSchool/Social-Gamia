@@ -16,7 +16,8 @@ $pdo = new PDO($dsn, $user, $passwd);
 </head>
 
 <body>
-    <div id="menu"> 
+
+    <div id="menu">    
         <a href="index.php">
             <div class="tooltip">
                 <i class="fas fa-home"></i>
@@ -44,6 +45,7 @@ $pdo = new PDO($dsn, $user, $passwd);
     </div>
 
     <center><header class="community_header">
+
         <?php
         try {
             $stmt = $pdo->query('SELECT * FROM communities WHERE id = '.$_GET["community_id"]);
@@ -83,48 +85,20 @@ $pdo = new PDO($dsn, $user, $passwd);
             echo "<h3>$e</h3>";
         }
         ?>
-        <br>
-        <div id='menu_2'>
-            <a href="community_highlights.php?community_id=<?= $_GET["community_id"] ?>">Highlights</a>
-            <a href="community_questions.php?community_id=<?= $_GET["community_id"] ?>">Questions</a>
-            <a href="community_rules.php?community_id=<?= $_GET["community_id"] ?>">Rules</a>
-        </div>
-        <div class="community_sort">
-            <form action="create_highlight.php?community_id=<?= $_GET["community_id"] ?>" method="post">
-                <input type="submit" value="Create highlight">
-            </form>
-            <form action="community_highlights.php?community_id=<?= $_GET["community_id"] ?>" method="post">
-                <input type="text" name="search_term" placeholder="Search...">
-                <select name="sort_type">
-                    <option value="post_date">Date</option>
-                    <option value="caption">Caption</option>
-                    <option value="likes">Most Likes</option>
-                </select>
-                <select name="sort">
-                    <option value="ASC">Ascending</option>
-                    <option value="DESC">Descending</option>
-                </select>
-                <input type="submit" name="search" value="Search">
-            </form>
-        </div>
+
     </header></center>
 
-    <center><main>
-        <?php
+    <center><main class="community_header">
+
+    <?php
         try {
-            if(isset($_POST["search"]) && isset($_POST["search_term"])) {
-                $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE community_id = '.$_GET["community_id"].' AND caption LIKE "%'.$_POST["search_term"].'%" ORDER BY '.$_POST["sort_type"].' '.$_POST["sort"]);
-            }else if(isset($_POST["search"])) {
-                $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE community_id = '.$_GET["community_id"].' ORDER BY '.$_POST["sort_type"].' '.$_POST["sort"]);
-            } else {
-                $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE community_id = '.$_GET["community_id"].' ORDER BY post_date ASC');
-            }
+            $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE id = '.$_GET["id"]);
             if($stmt->rowCount() == 0) {
-                throw new Exception("No highlights found!");
+                throw new Exception("No highlight found!");
             }
 
             ?>
-            <div class="highlights_container">
+            <div>
             <?php
             
             while($row = $stmt->fetch()) {
@@ -134,13 +108,25 @@ $pdo = new PDO($dsn, $user, $passwd);
                 ?>
                 <div class="highlight">
                     <h2> <?= $row["caption"] ?> </h2>
+                    <p><?= $row["description"]?></p>
                     <label class="highlight_date"><?= $date?></label>
                     <label class="highlight_date" style="top: 60px;"><?= $time?></label>
                     <img class="highlight_img" src="IMG/img-test.jpg" alt="Photo">
                     <label class="highlight_likes"><?= $row["likes"] ?> Likes</label>
-                    <br>
-                    <br>
-                    <a href="highlight_details.php?community_id=<?= $_GET["community_id"]?>&id=<?= $row["id"]?>">Highlight details</a>
+                    <?php
+                    if($row["user_id"] == $_COOKIE["loggedInUser"]) {
+                        ?>
+                        <form action="highlight_edit.php?community_id=<?= $_GET["community_id"]?>&id=<?= $_GET["id"]?>"  method="post">
+                            <input type="submit" value="Edit highlight">
+                        </form>
+                        <br>
+                        <br>
+                        <form action="highlight_delete.php?community_id=<?= $_GET["community_id"]?>&id=<?= $_GET["id"]?>" method="post">
+                            <input class="danger" type="submit" value="Delete highlight">
+                        </form>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <?php
             }
@@ -150,25 +136,13 @@ $pdo = new PDO($dsn, $user, $passwd);
             <?php
 
         } catch(Exception $e) {
-            echo "<h3>".$e->getMessage()."</h3>";
+            echo "<h3>$e</h3>";
         }
-        
         ?>
+
     </main></center>
     
     <footer></footer>
 
 </body>
 </html>
-<?php 
-try {
-    if (!isset($_COOKIE['loggedInUser'])) {
-        throw new Exception("U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.");
-    }
-} catch (Exception $e) {
-    echo "<h3>".$e->getMessage()."</h3>";
-    if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
-        echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
-    }
-}
-?>

@@ -335,3 +335,30 @@ i {
     border: 2px solid turquoise;
 }
 /* End */
+
+.highlights_container {
+    margin-top: 20px;
+    width: 60%;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+}
+.highlight {
+    padding: 20px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+    border-bottom: 1px solid gray;
+}
+.highlight_date {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+.highlight_likes {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.highlight_img {
+    width: 75%;
+}
