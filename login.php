@@ -16,7 +16,7 @@ function loggingIn()
             throw new Exception("<div style='color: red;'>This username and password combination is not registered.</div>");
         } else {
             setcookie('loggedInUser', $check_attempt['id'], time() + (86400));
-            header('Location: index.php');
+            header('Location: index.php?pass=FR');
         }
     }
 }
