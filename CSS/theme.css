@@ -14,7 +14,7 @@ body {
 }
   
   
-.login_body, .register_body, .pass_body ,.reset_body, .comm_create_body{
+.login_body, .register_body, .pass_body ,.reset_body, .comm_create_body, .comm_body{
     background-image: url("../IMG/img-test.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
@@ -25,7 +25,7 @@ body {
     height: 800px;
 }
 
-.login_container, .register_container, .pass_recover ,.reset_container{
+.login_container, .register_container, .pass_recover ,.reset_container {
 
     width: 300px;
     padding: 20px;
@@ -42,7 +42,7 @@ body {
 }
 
 
-.login_container h1, .register_container h1, .pass_recover h1, .reset_container h2, .comm_create h1 {
+.login_container h1, .register_container h1, .pass_recover h1, .reset_container h2, .comm_create h1, .search-button > h1 {
     text-transform: uppercase;
     color: white;
 }
@@ -50,7 +50,7 @@ body {
 .login_container input[type="text"],.login_container input[type="password"], 
 .register_container input[type="text"], .register_container input[type="password"], 
 .register_container input[type="email"], .pass_recover input[type="email"],
-.reset_container input[type="password"], .comm_create input[type="text"]{
+.reset_container input[type="password"], .comm_create input[type="text"] , .search-button input[type="text"]{
 
     border: 0;
     border: 2px solid #3498db;
@@ -65,13 +65,19 @@ body {
 .login_container input[type="text"]:focus,.login_container input[type="password"]:focus,
  .register_container input[type="text"]:focus, .register_container input[type="password"]:focus,
   .register_container input[type="email"]:focus, .pass_recover input[type="email"]:focus,
-  .reset_container input[type="password"]:focus, .comm_create input[type="text"]:focus  {
+  .reset_container input[type="password"]:focus, .comm_create input[type="text"]:focus  
+  
+  {
     width: 280px;
     border-color: #2ecc71;
 }
 
+.search-button input[type="text"]:focus{
+    border-color: #2ecc71;
+}
 
-.login_container input[type="submit"], .register_container input[type="submit"], .pass_recover input[type="submit"],.reset_container input[type="submit"], .comm_create input[type="submit"]  {
+
+.login_container input[type="submit"], .register_container input[type="submit"], .pass_recover input[type="submit"],.reset_container input[type="submit"], .comm_create input[type="submit"], .search-button input[type="submit"]  {
     border: 0;
     border: 2px solid #2ecc71;
     text-align: center;
@@ -85,7 +91,7 @@ body {
 }
 
 
-.login_container input[type="submit"]:hover, .register_container input[type="submit"]:hover, .pass_recover input[type="submit"]:hover,.reset_container input[type="submit"]:hover, .comm_create input[type="submit"]:hover  {
+.login_container input[type="submit"]:hover, .register_container input[type="submit"]:hover, .pass_recover input[type="submit"]:hover,.reset_container input[type="submit"]:hover, .comm_create input[type="submit"]:hover  , .search-button input[type="submit"]:hover{
 
     background: #2ecc71;
  
@@ -403,8 +409,75 @@ i {
 
 /* Community Create Css*/
 
-.popup {
 
-    border: 2px solid turquoise;
+
+
+.create-com {
+
+    border: 0;
+    border: 2px solid #2ecc71;
+    text-align: center;
+    outline: none;
+    padding: 14px 40px;
+    margin: 10px auto;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    background: #2ecc71;
+    display:flex;
+    align-items: center;
 }
+/* End */
+
+.highlights_container {
+    margin-top: 20px;
+    width: 60%;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+}
+.highlight {
+    padding: 20px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+    border-bottom: 1px solid gray;
+}
+.highlight_date {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+.highlight_likes {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.highlight_img {
+    width: 75%;
+}
+
+
+#create-btn a {
+    color: turquoise;
+    text-decoration: none;
+}
+
+.fa-plus-square-o{
+    color: white;
+}
+
+
+#create-btn span{
+    padding-right: 10px;
+}
+
+
+.search-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
 /* End */
