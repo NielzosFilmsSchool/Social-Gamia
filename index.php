@@ -175,9 +175,7 @@ if (isset($_POST['no'])) {
                                     }
                                 }
                             } else if ($_GET['pass'] == 'DM') {
-                                while ($friends = $social->fetch()) {
-                                    echo "Work in progress";
-                                }
+                                echo "Work in progress";
                             } else if ($_GET['pass'] == 'FRR') {
                                 echo $notification;
                             }
