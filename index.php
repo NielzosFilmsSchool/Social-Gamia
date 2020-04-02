@@ -12,12 +12,13 @@ if (isset($_POST['friend'])) {
     $send_request = $pdo->prepare("INSERT INTO friends (name_requester, name_receiver) VALUES (?,?)");
     $send_request->execute([$current_user['username'],$_POST['friend']]);
 }
-$friend_request = $pdo->query("SELECT name_requester, name_receiver FROM friends");
+$friend_request = $pdo->query("SELECT name_requester, name_receiver, status FROM friends");
 $notifications = $friend_request->fetch();
 $notification = "No new friends :(";
-if ($notifications['name_requester'] == $current_user['username']) {
+$user_current = (string)$current_user['username'];
+if ($notifications['name_requester'] == $user_current && $notifications['status'] == false) {
     $notification = "You sent out a friend request!";
-} if ($notifications['name_receiver'] == $current_user['username']) {
+} if ($notifications['name_receiver'] == $user_current && $notifications['status'] == false) {
     $notification = "You have a new friend request from " . $notifications['name_requester'] . "! <form method='post'> <input type='submit' name='yes' value='Accept'> <input type='submit' name='no' value='Decline'></form>";
 }
 if (isset($_POST['yes'])) {
@@ -25,11 +26,11 @@ if (isset($_POST['yes'])) {
     $Accept = $pdo->prepare("UPDATE friends SET status=? WHERE name_receiver=?");
     $Accept->execute([$status, $current_user['username']]);
     $notification="No new friends :(";
+} if (isset($_POST['no'])) {
+    $status = false;
+    $Decline = $pdo->prepare("DELETE FROM friends WHERE status=? AND WHERE name_receiver=?");
+    $Decline->execute([$status, $current_user['username']]);
 }
-// if (isset($_POST['no'])) {
-//     $Decline = $pdo->prepare("DELETE FROM friends WHERE status=? AND WHERE name_receiver=?");
-//     $Decline->execute([]);
-// }
 ?>
 
 <!DOCTYPE html>
