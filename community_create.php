@@ -66,13 +66,9 @@ function createCommunity()
                 <input type="submit" name="submit" value="Create Community">
             </form>
         </div>
-<<<<<<< HEAD
-  
-=======
 
     
     
->>>>>>> 5f8e8bfea4fb3255ca39c3cedfb5093637867def
     </body>
 </html>
 
