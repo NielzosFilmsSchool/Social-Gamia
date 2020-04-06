@@ -231,27 +231,48 @@ if (isset($_POST['no'])) {
         <div class="feed_container">
             <?php
             try {
-                // $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC');
-                // if($stmt->rowCount() == 0) {
-                //     throw new Exception("No communities found!");
-                // }
+                $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$_COOKIE["loggedInUser"]);
+                $user = $user_query->fetch();
 
-                ?>
-                <table class="feed_table">
-                    <tr>
-                        <th>Feed</th>
-                    </tr>
-                <?php
-                
-                //while($row = $stmt->fetch()) {
+                $user_friends = explode("&;", $user["folowing_users"]);
+
+                unset($user_friends[0]);
+
+                foreach($user_friends as $friend_id) {
+                    $friends_ids = implode(", ", $user_friends);
+                    $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE user_id IN ('.$friends_ids.') ORDER BY post_date DESC');
+                    if($stmt->rowCount() == 0) {
+                        throw new Exception("No items found!");
+                    }
+
                     ?>
-                    <tr>
-                        <td>
-                            Feed item
-                        </td>
-                    </tr>
+                    <table class="feed_table">
+                        <tr>
+                            <th>Friend activity</th>
+                        </tr>
                     <?php
-                //}
+                    if($friend_id == 0){
+                        continue;
+                    }
+                    $friend_query = $pdo->query("SELECT * FROM users WHERE id = $friend_id");
+                    $friend = $friend_query->fetch();
+
+                    while($row = $stmt->fetch()) {
+                        $time_input = strtotime($row["post_date"]);
+                        $date = date("d-M-Y", $time_input);
+                        $time = date("H:i:s", $time_input);
+                        ?>
+                        <tr>
+                            <td>
+                                <a href=""><?= $row["caption"]?></a>
+                                <label><?= $date?></label>
+                                <br>
+                                <label><?= $friend["username"]?></label>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
 
                 ?>
                 </table>
@@ -259,6 +280,13 @@ if (isset($_POST['no'])) {
 
             } catch(Exception $e) {
                 echo "<h3>".$e->getMessage()."</h3>";
+            }
+
+            function remove_element(&$array,$value) {
+                if(($key = array_search($value,$array)) != false) {
+                    unset($array[$key]);
+                }
+                return $array;
             }
             ?>
         </div>
