@@ -9,6 +9,10 @@ if(!isset($_COOKIE["loggedInUser"])) {
     header('Location: login.php');
 }
 
+if(!isset($_GET["pass"])) {
+    header('Location: index.php?pass=FR');
+}
+
 /**
  * Database changes
  * FROM friends
