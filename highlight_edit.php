@@ -108,6 +108,7 @@ if(!isset($_COOKIE["loggedInUser"])) {
                 ?>
                 <form id="create_highlight" action="highlight_edit.php?community_id=<?= $_GET["community_id"] ?>&id=<?= $_GET["id"]?>" method="post">
                     <input type="text" name="caption" placeholder="Caption..." value="<?= $row["caption"]?>"><br>
+                    <input type="file" name="fileToUpload" value="<?= $row["file_path"]?>"><br>
                     <textarea name="desc" form="create_highlight" cols="30" rows="10" placeholder="Description..." ><?= $row["description"]?></textarea><br>
                     <input type="submit" name="submit" value="Update highlight">
                 </form>

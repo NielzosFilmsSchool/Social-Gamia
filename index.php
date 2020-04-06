@@ -195,7 +195,7 @@ if (isset($_POST['no'])) {
         <div class="communities_container">
             <?php
             try {
-                $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC');
+                $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC LIMIT 10');
                 if($stmt->rowCount() == 0) {
                     throw new Exception("No communities found!");
                 }
@@ -212,7 +212,7 @@ if (isset($_POST['no'])) {
                 while($row = $stmt->fetch()) {
                     ?>
                     <tr>
-                        <td>
+                        <td class="index_table_item">
                             <a href="community_highlights.php?community_id=<?= $row["id"] ?>"> <?= $row["name"] ?> </a>
                         </td>
                     </tr>
@@ -244,7 +244,7 @@ if (isset($_POST['no'])) {
 
                 foreach($user_friends as $friend_id) {
                     $friends_ids = implode(", ", $user_friends);
-                    $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE user_id IN ('.$friends_ids.') ORDER BY post_date DESC');
+                    $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE user_id IN ('.$friends_ids.') ORDER BY post_date DESC LIMIT 10');
                     if($stmt->rowCount() == 0) {
                         throw new Exception("No items found!");
                     }
@@ -267,9 +267,10 @@ if (isset($_POST['no'])) {
                         $time = date("H:i:s", $time_input);
                         ?>
                         <tr>
-                            <td>
-                                <a href=""><?= $row["caption"]?></a>
-                                <label><?= $date?></label>
+                            <td class="index_table_item">
+                                <a href="highlight_details.php?community_id=<?= $row["community_id"]?>&id=<?= $row["id"]?>"><?= $row["caption"]?></a>
+                                <br>
+                                <label><?= $date?> <?= $time?></label>
                                 <br>
                                 <label><?= $friend["username"]?></label>
                             </td>

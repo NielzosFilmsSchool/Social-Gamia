@@ -50,3 +50,14 @@ $('[contenteditable=true]').keydown(function(e) {
         return false;
     }
 });
+
+function selectChange() {
+    let selected = document.getElementById("element_to_add").value;
+    if(selected == "img") {
+        document.getElementById("image_options").style.display = "block";
+        document.getElementById("color_options").style.display = "none";
+    } else {
+        document.getElementById("image_options").style.display = "none";
+        document.getElementById("color_options").style.display = "block";
+    }
+}

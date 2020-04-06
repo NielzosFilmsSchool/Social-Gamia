@@ -479,5 +479,10 @@ i {
     flex-direction: column;
 }
 
+.index_table_item {
+    padding: 20px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
 
 /* End */
