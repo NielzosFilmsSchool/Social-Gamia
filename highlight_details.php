@@ -4,6 +4,10 @@ $user = "root";
 $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
+
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,16 +106,26 @@ $pdo = new PDO($dsn, $user, $passwd);
             <?php
             
             while($row = $stmt->fetch()) {
+                $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$row["user_id"]);
+                $user = $user_query->fetch();
+
                 $time_input = strtotime($row["post_date"]);
                 $date = date("d-M-Y", $time_input);
                 $time = date("H:i:s", $time_input);
                 ?>
                 <div class="highlight">
                     <h2> <?= $row["caption"] ?> </h2>
+                    <label><?= $user["username"]?></label>
                     <p><?= $row["description"]?></p>
                     <label class="highlight_date"><?= $date?></label>
                     <label class="highlight_date" style="top: 60px;"><?= $time?></label>
-                    <img class="highlight_img" src="IMG/img-test.jpg" alt="Photo">
+                    <?php
+                    if(!empty($row["file_path"])) {
+                        ?>
+                        <img class="highlight_img" src="<?= $row["file_path"]?>" alt="Photo">
+                        <?php
+                    }
+                    ?>
                     <label class="highlight_likes"><?= $row["likes"] ?> Likes</label>
                     <?php
                     if($row["user_id"] == $_COOKIE["loggedInUser"]) {

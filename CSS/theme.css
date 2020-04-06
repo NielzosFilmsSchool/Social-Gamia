@@ -503,6 +503,13 @@ i {
     border: none;
 }
 
+
+.index_table_item {
+    padding: 20px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+
 .customize-btn:hover{
    cursor: pointer;
 }
