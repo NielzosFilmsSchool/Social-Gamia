@@ -13,9 +13,13 @@ $pdo = new PDO($dsn, $user, $passwd);
     <title>Social Gamia | Communities</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
+   
 </head>
 
-<body>
+<body class="comm_body">
+
+
+
 
     <header>
         <div id="menu">
@@ -45,11 +49,22 @@ $pdo = new PDO($dsn, $user, $passwd);
             </a>
         </div>
     
-        <form action="communities.php" method="GET">
-            <input type="text" placeholder="Search communities..." name="search">
-            <input type="submit" name="submit_search" value="Search">
-        </form>
-        <a href="community_create.php">Create new community</a>
+        <div class="search-button">
+            <h1>Create your own Community</h1>
+            <form action="communities.php" method="GET">
+                <input type="text" placeholder="Search communities..." name="search" >
+                <input type="submit" name="submit_search" value="Search">
+            </form>
+    </div>
+
+        <div id="create-btn">
+        <a href="community_create.php"><button class="create-com">
+            <span><i class="fa fa-plus-square-o" aria-hidden="true"></i></span>
+            Create a Community
+        </button></a>
+
+    </div> 
+      
 
     </header>
 
@@ -90,6 +105,10 @@ $pdo = new PDO($dsn, $user, $passwd);
         </table>
 
     </main>
+
+
+
+ 
     
     <footer></footer>
 

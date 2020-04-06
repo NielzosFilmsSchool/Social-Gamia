@@ -137,9 +137,18 @@ try {
                     <div class="profile_page_controls">
                         <select id="element_to_add" class="blue padding">
                             <option value="text">Text</option>
-                            <option value="photo">Photo</option>
-                            <option value="video">Video</option>
+                            <option value="h1">Title</option>
+                            <option value="h3">Header</option>
+                            <option value="ul">Unordered list</option>
+                            <option value="ol">Ordered list</option>
                         </select>
+                        <br>
+                        <label for="text_color">Text: </label>
+                        <input type="color" id="text_color" class="blue padding">
+                        <br>
+                        <label for="bg_color">Background: </label>
+                        <input type="color" id="bg_color" class="blue padding" value="#ffffff">
+                        <br>
                         <button class="margin_top blue padding" onclick="addHtml()">Add selected element</button>
                         <br>
                         <button class="green padding" onclick="getHtml(<?= $_GET['user']?>)">Save changes</button>

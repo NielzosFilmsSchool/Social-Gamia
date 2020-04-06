@@ -12,17 +12,25 @@ function getHtml(user) {
 
 function addHtml() {
     var selected = document.getElementById("element_to_add").value;
+    var color = document.getElementById("text_color").value;
+    var bg_color = document.getElementById("bg_color").value;
     var container = document.getElementById("profile_page_content");
+
+    console.log(color);
 
     var html = '<div class="margin_top relative" id="profile_content_div">';
     html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
 
     if(selected == "text"){
-        html += '<div contenteditable="true" class="padding">Text...</div>';
-    }else if(selected == "photo") {
-
-    }else if(selected == "video") {
-
+        html += '<div contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Text...</div>';
+    }else if(selected == "h1"){
+        html += '<h1 contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Title...</h1>';
+    }else if(selected == "h3"){
+        html += '<h3 contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Header...</h3>';
+    }else if(selected == "ul") {
+        html += '<ul contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'"><li></li></ul>';
+    }else if(selected == "ol") {
+        html += '<ol contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'"><li></li></ol>';
     }
     html += '</div>';
     container.innerHTML += html;
