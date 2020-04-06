@@ -1,4 +1,8 @@
 <?php
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 class User
 {
     public $id;

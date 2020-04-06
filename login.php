@@ -1,4 +1,8 @@
 <?php
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 function loggingIn() 
 {
     $dsn = "mysql:host=localhost;dbname=social_gamia";

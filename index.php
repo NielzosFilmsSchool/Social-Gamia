@@ -5,6 +5,10 @@ $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
 
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 /**
  * Database changes
  * FROM friends

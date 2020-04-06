@@ -4,6 +4,10 @@ $user = "root";
 $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
+
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
 ?>
 
 <!DOCTYPE html>
