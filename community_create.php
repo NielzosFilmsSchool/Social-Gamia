@@ -63,13 +63,10 @@ function createCommunity()
             <form action="community_create.php" method="post" class="comm_form">
                 <input type="text" name="name" placeholder="Community name...">
                 <input type="text" name="desc" id="" placeholder="Community description...">
-                <input type="submit" name="submit">
+                <input type="submit" name="submit" value="Create Community">
             </form>
         </div>
-
-    <div id="create-btn">
-        <button class="button popup">Create Community</button>
-    </div>    
+  
     </body>
 </html>
 
