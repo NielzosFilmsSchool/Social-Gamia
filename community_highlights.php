@@ -126,14 +126,20 @@ $pdo = new PDO($dsn, $user, $passwd);
             ?>
             <div class="highlights_container">
             <?php
-            
+
             while($row = $stmt->fetch()) {
+
+                $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$row["user_id"]);
+                $user = $user_query->fetch();
+
                 $time_input = strtotime($row["post_date"]);
                 $date = date("d-M-Y", $time_input);
                 $time = date("H:i:s", $time_input);
                 ?>
                 <div class="highlight">
                     <h2> <?= $row["caption"] ?> </h2>
+                    <a href="profile.php?user=<?= $user["id"]?>"><?= $user["username"]?></a>
+                    <br>
                     <label class="highlight_date"><?= $date?></label>
                     <label class="highlight_date" style="top: 60px;"><?= $time?></label>
                     <img class="highlight_img" src="IMG/img-test.jpg" alt="Photo">
