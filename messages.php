@@ -11,7 +11,8 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 <?php
 
-
+// Database
+// id =int| user = varchar| message= text| date = timestamp
 session_start();
  
 switch( $_REQUEST['action']) {
