@@ -95,7 +95,7 @@ try {
         <?php
         if($user->id == $_COOKIE["loggedInUser"]) {
         ?>
-            <a class="edit_account" href="account_edit.php?user_id=<?= $user->id?>">Edit account</a>
+            <a class="edit_account" href="account_edit.php?user_id=<?= $user->id?>"> Edit account <div class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div></a>
         <?php
         }
 

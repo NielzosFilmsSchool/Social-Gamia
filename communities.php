@@ -54,7 +54,7 @@ if(!isset($_COOKIE["loggedInUser"])) {
         </div>
     
         <div class="search-button">
-            <h1>Create your own Community</h1>
+            <h1>Search a Community</h1>
             <form action="communities.php" method="GET">
                 <input type="text" placeholder="Search communities..." name="search" >
                 <input type="submit" name="submit_search" value="Search">
