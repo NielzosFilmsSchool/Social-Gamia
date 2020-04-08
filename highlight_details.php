@@ -119,7 +119,13 @@ if(!isset($_COOKIE["loggedInUser"])) {
                     <p><?= $row["description"]?></p>
                     <label class="highlight_date"><?= $date?></label>
                     <label class="highlight_date" style="top: 60px;"><?= $time?></label>
-                    <img class="highlight_img" src="IMG/img-test.jpg" alt="Photo">
+                    <?php
+                    if(!empty($row["file_path"])) {
+                        ?>
+                        <img class="highlight_img" src="<?= $row["file_path"]?>" alt="Photo">
+                        <?php
+                    }
+                    ?>
                     <label class="highlight_likes"><?= $row["likes"] ?> Likes</label>
                     <?php
                     if($row["user_id"] == $_COOKIE["loggedInUser"]) {

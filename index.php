@@ -9,6 +9,10 @@ if(!isset($_COOKIE["loggedInUser"])) {
     header('Location: login.php');
 }
 
+if(!isset($_GET["pass"])) {
+    header('Location: index.php?pass=FR');
+}
+
 /**
  * Database changes
  * FROM friends
@@ -144,6 +148,20 @@ if (isset($_POST['no'])) {
                 <i class="fas fa-plus"></i>
                     <span class="tooltiptext">Create Community</span>
                 </div>
+
+                <a href="direct_messages.php">
+                <div class="tooltip">
+                <i class="fas fa-paper-plane"></i>
+                    <span class="tooltiptext">Messages</span>
+                </div>
+
+                <a href="community_create.php">
+                <div class="tooltip">
+                <i class="fas fa-users"></i>
+                    <span class="tooltiptext">Friends</span>
+                </div>
+
+                
             </a>
         </div>
     </header>
@@ -191,7 +209,7 @@ if (isset($_POST['no'])) {
         <div class="communities_container">
             <?php
             try {
-                $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC');
+                $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC LIMIT 10');
                 if($stmt->rowCount() == 0) {
                     throw new Exception("No communities found!");
                 }
@@ -208,7 +226,7 @@ if (isset($_POST['no'])) {
                 while($row = $stmt->fetch()) {
                     ?>
                     <tr>
-                        <td>
+                        <td class="index_table_item">
                             <a href="community_highlights.php?community_id=<?= $row["id"] ?>"> <?= $row["name"] ?> </a>
                         </td>
                     </tr>
@@ -231,27 +249,49 @@ if (isset($_POST['no'])) {
         <div class="feed_container">
             <?php
             try {
-                // $stmt = $pdo->query('SELECT * FROM communities ORDER BY name ASC');
-                // if($stmt->rowCount() == 0) {
-                //     throw new Exception("No communities found!");
-                // }
+                $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$_COOKIE["loggedInUser"]);
+                $user = $user_query->fetch();
 
-                ?>
-                <table class="feed_table">
-                    <tr>
-                        <th>Feed</th>
-                    </tr>
-                <?php
-                
-                //while($row = $stmt->fetch()) {
+                $user_friends = explode("&;", $user["folowing_users"]);
+
+                unset($user_friends[0]);
+
+                foreach($user_friends as $friend_id) {
+                    $friends_ids = implode(", ", $user_friends);
+                    $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE user_id IN ('.$friends_ids.') ORDER BY post_date DESC LIMIT 10');
+                    if($stmt->rowCount() == 0) {
+                        throw new Exception("No items found!");
+                    }
+
                     ?>
-                    <tr>
-                        <td>
-                            Feed item
-                        </td>
-                    </tr>
+                    <table class="feed_table">
+                        <tr>
+                            <th>Friend activity</th>
+                        </tr>
                     <?php
-                //}
+                    if($friend_id == 0){
+                        continue;
+                    }
+                    $friend_query = $pdo->query("SELECT * FROM users WHERE id = $friend_id");
+                    $friend = $friend_query->fetch();
+
+                    while($row = $stmt->fetch()) {
+                        $time_input = strtotime($row["post_date"]);
+                        $date = date("d-M-Y", $time_input);
+                        $time = date("H:i:s", $time_input);
+                        ?>
+                        <tr>
+                            <td class="index_table_item">
+                                <a href="highlight_details.php?community_id=<?= $row["community_id"]?>&id=<?= $row["id"]?>"><?= $row["caption"]?></a>
+                                <br>
+                                <label><?= $date?> <?= $time?></label>
+                                <br>
+                                <label><?= $friend["username"]?></label>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
 
                 ?>
                 </table>
@@ -259,6 +299,13 @@ if (isset($_POST['no'])) {
 
             } catch(Exception $e) {
                 echo "<h3>".$e->getMessage()."</h3>";
+            }
+
+            function remove_element(&$array,$value) {
+                if(($key = array_search($value,$array)) != false) {
+                    unset($array[$key]);
+                }
+                return $array;
             }
             ?>
         </div>
