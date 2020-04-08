@@ -154,6 +154,11 @@ if(!isset($_COOKIE["loggedInUser"])) {
                     }
                     ?>
                     <label class="highlight_likes"><?= $row["likes"] ?> Likes</label>
+                    <form class="highlight_likes" style="bottom: 0px;" action="community_highlights.php?community_id=<?= $_GET["community_id"]?>" method="post">
+                        <input type="hidden" name="post_id" value="<?= $row["id"]?>">
+                        <input type="submit" name="submit_like" value="Like" class="green">
+                        <input type="submit" name="submit_dislike" value="Disline" class="danger">
+                    </form>
                     <br>
                     <br>
                     <a href="highlight_details.php?community_id=<?= $_GET["community_id"]?>&id=<?= $row["id"]?>">Highlight details</a>
@@ -186,5 +191,89 @@ try {
     if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
         echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
     }
+}
+
+if(isset($_POST["submit_like"])) {
+    $post_query = $pdo->query("SELECT * FROM highlight_posts WHERE id = ".$_POST["post_id"]);
+    $post = $post_query->fetch();
+
+    $user_query = $pdo->query("SELECT * FROM users WHERE id = ".$_COOKIE["loggedInUser"]);
+    $user = $user_query->fetch();
+
+    $liked_posts = explode("&;", $user["liked_posts"]);
+    if(in_array($post["id"], $liked_posts)) {
+        return;
+    }
+
+    $disliked_posts = explode("&;", $user["disliked_posts"]);
+    if(in_array($post["id"], $disliked_posts)) {
+        if (($key = array_search($post["id"], $disliked_posts)) !== false) {
+            unset($disliked_posts[$key]);
+        }
+    }
+
+    $likes = intval($post["likes"]);
+    $likes = $likes += 1;
+
+    array_push($liked_posts, $post["id"]);
+
+    $post_update = $pdo->prepare(
+        "UPDATE highlight_posts 
+        SET likes = $likes
+        WHERE id = ".$post["id"]
+    );
+    $post_update->execute();
+
+    $liked_posts_str = implode("&;", $liked_posts);
+    $disliked_posts_str = implode("&;", $disliked_posts);
+
+    $user_update = $pdo->prepare(
+        "UPDATE users
+        SET disliked_posts = '$disliked_posts_str', liked_posts = '$liked_posts_str'
+        WHERE id = ".$user["id"]
+    );
+    $user_update->execute();
+}
+
+if(isset($_POST["submit_dislike"])) {
+    $post_query = $pdo->query("SELECT * FROM highlight_posts WHERE id = ".$_POST["post_id"]);
+    $post = $post_query->fetch();
+
+    $user_query = $pdo->query("SELECT * FROM users WHERE id = ".$_COOKIE["loggedInUser"]);
+    $user = $user_query->fetch();
+
+    $disliked_posts = explode("&;", $user["disliked_posts"]);
+    if(in_array($post["id"], $disliked_posts)) {
+        return;
+    }
+
+    $liked_posts = explode("&;", $user["liked_posts"]);
+    if(in_array($post["id"], $liked_posts)) {
+        if (($key = array_search($post["id"], $liked_posts)) !== false) {
+            unset($liked_posts[$key]);
+        }
+    }
+
+    $likes = intval($post["likes"]);
+    $likes = $likes -= 1;
+
+    array_push($disliked_posts, $post["id"]);
+
+    $post_update = $pdo->prepare(
+        "UPDATE highlight_posts 
+        SET likes = $likes
+        WHERE id = ".$post["id"]
+    );
+    $post_update->execute();
+
+    $disliked_posts_str = implode("&;", $disliked_posts);
+    $liked_posts_str = implode("&;", $liked_posts);
+
+    $user_update = $pdo->prepare(
+        "UPDATE users
+        SET disliked_posts = '$disliked_posts_str', liked_posts = '$liked_posts_str'
+        WHERE id = ".$user["id"]
+    );
+    $user_update->execute();
 }
 ?>
