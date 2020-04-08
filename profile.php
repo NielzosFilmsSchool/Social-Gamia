@@ -123,7 +123,7 @@ try {
                         <h1 id="profile_page_title"><?= $row["title"]?></h1>
                     </div>
                     <!-- PROFILE PAGE CONTENT START -->
-                    <div id="profile_page_content">
+                    <div id="profile_page_content" class="">
                         <?php
                         $html = $row["html"];
                         if($user->id != $_COOKIE["loggedInUser"]) {
@@ -161,6 +161,7 @@ try {
                         <div id="image_options" style="display:none;">
                             <form action="profile.php?user=<?= $_GET["user"]?>" method="post" enctype="multipart/form-data">
                                 <input class="blue padding" type="file" name="fileToUpload"><br>
+                                <label for="width_val">Image Width(%): </label><input class="blue padding" type="number" name="width_val" id="width_val" style="width:50px;" value="100" min="10" max="100" step="5"><br>
                                 <input class="margin_top blue padding" type="submit" name="file_submit" value="Add selected element">
                             </form>
                         </div>
@@ -193,10 +194,13 @@ if(isset($_POST["profile_html"]) && $user->id == $_COOKIE["loggedInUser"]) {
         WHERE id = ".$profile_id
     );
     $stmt->execute();
-    header("Refresh:1");
+    header("Refresh:0");
 }
 
-if(isset($_POST["file_submit"])){
+if(isset($_POST["file_submit"]) && isset($_POST["width_val"])){
+    if($_POST["width_val"] < 10 || $_POST["width_val"] > 100) {
+        return;
+    }
     $target_dir = "UPLOADS/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
@@ -214,7 +218,20 @@ if(isset($_POST["file_submit"])){
     // Check if file already exists
     if (file_exists($target_file)) {
         echo "Sorry, file already exists.";
-       
+        ?>
+        <script>
+            var container = document.getElementById("profile_page_content");
+
+            var html = '<div class="margin_top relative inline-block" id="profile_content_div" style="width: <?= $_POST["width_val"]?>%;">';
+            html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
+
+            html += '<img src="<?= $target_file?>" width="100%;">';
+
+            html += '</div>';
+            container.innerHTML += html;
+        </script>
+        <?php
+        return;
         $uploadOk = 0;
     }
 
@@ -242,10 +259,10 @@ if(isset($_POST["file_submit"])){
             <script>
                 var container = document.getElementById("profile_page_content");
 
-                var html = '<div class="margin_top relative" id="profile_content_div">';
+                var html = '<div class="margin_top relative inline-block" id="profile_content_div"> style="width: <?= $_POST["width_val"]?>%;"';
                 html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
 
-                html += '<img src="<?= $target_file?>">';
+                html += '<img src="<?= $target_file?>" style="width: width:100%;">';
 
                 html += '</div>';
                 container.innerHTML += html;

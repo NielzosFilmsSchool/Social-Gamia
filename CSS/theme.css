@@ -517,15 +517,28 @@ i {
 .profile_page_controls{
     border: black 4px solid;
     background-color: 	#DCDCDC;
-    width: 45em;
-    display: flex;
-    height: 40px;
+    width: 30%;
     justify-content: center;
     align-items:center;
 }
 
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
+.inline-block {
+    display: inline-block;
+}
 
+.border_bottom {
+    border-bottom: 1px solid gray;
+}
+
+.comments_table {
+    width: 100%;
+}
 
 input::-webkit-color-swatch {
     border: transparent;
