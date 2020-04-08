@@ -116,7 +116,7 @@ if(!isset($_COOKIE["loggedInUser"])) {
                 throw new Exception("No rules found!");
             }
             ?>
-            <table class="rules_table">
+            <table class="rules_table" style="width:100%;">
             <?php
             while($row = $stmt->fetch()) {
                 if($row["rules"] == null) {
@@ -125,8 +125,12 @@ if(!isset($_COOKIE["loggedInUser"])) {
                 foreach(explode("&;", $row["rules"]) as $rule) {
                     ?>
                     <tr>
-                        <td>
-                            <?= $rule ?>
+                        <td class="border_bottom padding">
+                            <label><?= $rule ?></label>
+                            <form action="community_rules.php?community_id=<?= $_GET["community_id"]?>" method="post">
+                                <input type="hidden" name="rule_text" value="<?= $rule?>">
+                                <input type="submit" name="delete_rule" value="Delete Rule" class="danger">
+                            </form>
                         </td>
                     </tr>
                     <?php
@@ -181,7 +185,7 @@ try {
         }
     }
 } catch (Exception $e) {
-    echo "<label>$e</label>";
+    echo "<label>".$e->getMessage()."</label>";
 }
 try {
     if (!isset($_COOKIE['loggedInUser'])) {
@@ -192,5 +196,27 @@ try {
     if ($e->getMessage() == "U bent niet ingelogd, u wordt nu doorgestuurd naar de login pagina.") {
         echo "<script>setTimeout(\"location.href = 'logout.php';\",1500);</script>";
     }
+}
+
+if(isset($_POST["delete_rule"])) {
+    $community_query = $pdo->query("SELECT * FROM communities WHERE id = ".$_GET["community_id"]);
+    $community = $community_query->fetch();
+
+    $rules = explode("&;", $community["rules"]);
+
+    if(in_array($_POST["rule_text"], $rules)) {
+        if (($key = array_search($_POST["rule_text"], $rules)) !== false) {
+            unset($rules[$key]);
+        }
+    }
+    
+    $rules_str = implode("&;", $rules);
+    
+    $stmt = $pdo->prepare(
+        "UPDATE communities 
+        SET rules = '$rules_str'
+        WHERE id = ".$_GET["community_id"]
+    );
+    $stmt->execute();
 }
 ?>
