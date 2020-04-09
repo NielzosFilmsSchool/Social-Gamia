@@ -591,18 +591,12 @@ input::-webkit-color-swatch {
 
 .textarea{
     width: 100%;
-    border: 1px solid #b3b3b3b3;
+    border: 1px solid red;
     outline: none;
     padding: 10px;
     margin-top: 10px;
 }
 
-.communities_container, .feed_container{
-    height: 800px;
-    width: 800px;
-    color: white;
-}   
-
-#dropbtn {
-
+.frnd_list > h5{
+    color: black;
 }

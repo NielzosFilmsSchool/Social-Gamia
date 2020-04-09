@@ -191,7 +191,7 @@ if (isset($_POST['no'])) {
                                     if(in_array($_COOKIE["loggedInUser"], $friends_arr)) {
                                         ?>
                                         <div class="menu" onclick="location.href='profile.php?user=<?= $row['id']?>';">
-                                            <?= $row['username']?>
+                                            <?= $row['username']?> 
                                         </div>
                                         <?php
                                     }
@@ -312,8 +312,10 @@ if (isset($_POST['no'])) {
         
     </main></center>
         
-    <footer></footer>
-        
+    <footer>
+    
+    <a href="logout.php">Logout Here</a>
+    </footer>
 </body>
     
 </html>
