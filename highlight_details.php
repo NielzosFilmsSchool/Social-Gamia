@@ -216,7 +216,6 @@ if(isset($_POST["submit_comment"]) && !empty($_POST["comment_text"])) {
         VALUES ('".$_POST["comment_text"]."', ".$_COOKIE["loggedInUser"].", '$date', ".$_GET["id"].")"
     );
     $stmt->execute();
-    header('Location: highlight_details.php?community_id='.$_GET["community_id"].'&id='.$_GET["id"]);
 }
 
 if(isset($_POST["delete_comment"])) {
@@ -229,5 +228,4 @@ if(isset($_POST["delete_comment"])) {
 
     $stmt = $pdo->prepare("DELETE FROM comments WHERE id = ".$_POST["id"]);
     $stmt->execute();
-    header('Location: highlight_details.php?community_id='.$_GET["community_id"].'&id='.$_GET["id"]);
 }
