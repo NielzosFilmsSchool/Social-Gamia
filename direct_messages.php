@@ -30,12 +30,12 @@ function showingProfile()
 
 <body>
 
+<div id="position_log">
+    <div class="logout_btn">
+    <a href="logout.php">Logout</a>
+    </div>
+</div>
 
-
-<?php  
-session_start();
-?>
-    
     
     
     <header>
@@ -135,19 +135,20 @@ session_start();
                                 }
         ?>
          
-                <div class="chat_wrapper">
+                <!-- <div class="chat_wrapper">
                     <div id="chat"></div>
                     <form method="POST" id="messageForm"> 
                         <textarea name="message"  cols="30" rows="7" class="textarea"></textarea>
+                        </form>
                 </div>        
-
-            </div>
+                                	
+            </div> -->
     </main>
     
     <footer></footer>
 
 
-
+<!-- 
             <script>
 
                 LoadChat();
@@ -179,7 +180,7 @@ session_start();
 
                     return false;
                 });
-                </script>
+                </script> -->
                 
 
 

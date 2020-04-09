@@ -604,3 +604,27 @@ input::-webkit-color-swatch {
 .body_profile{
     background-color: slategray;
 }
+
+
+.logout_btn{
+    padding: 20px;
+    width: 50px;
+    height: 20px;
+    background-color:  #19a7df;
+    border-radius: 10px;
+}
+
+#position_log{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.logout_btn > a{
+    text-decoration:none;
+    color: white;
+}
+.question {
+    width: 60%;
+    text-align: left;
+}
