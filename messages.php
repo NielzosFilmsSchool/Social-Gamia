@@ -40,22 +40,47 @@ switch( $_REQUEST['action']) {
     break;
 
     case "getMessages":
-
-        $query = $pdo->prepare("SELECT * FROM messages");
-        $run = $query->execute();
-        $rs = $query->fetchAll(PDO::FETCH_OBJ);
         
-        $chat="";
-
-        foreach($rs as $message){
-
-            // $chat .= $message->message. '<br />';
-            $chat .= '<div class="single-message">
-            <strong>'.$message->user.': </strong>'.$message->message.'
-            </div>';
+        if(!isset($_REQUEST['filter'])){
+            $query = $pdo->prepare("SELECT * FROM messages");
+            $run = $query->execute();
+            $rs = $query->fetchAll(PDO::FETCH_OBJ);
+            
+            $chat="";
+    
+            foreach($rs as $message){
+    
+                // $chat .= $message->message. '<br />';
+                $chat .= '<div class="single-message">
+                <strong>'.$message->user.': </strong>'.$message->message.'
+                </div>';
+            }
+            echo $chat;
+        } 
+        $query = $pdo->query('SELECT user FROM messages');
+        $run2 = $query->fetch();
+        if($_REQUEST['filter'] == $run2['user']) {
+            $query = $pdo->prepare("SELECT * FROM messages WHERE user=? and WHERE user=?");
+            $run = $query->execute([$current_user, $run2['user']]);
+            $rs = $query->fetchAll(PDO::FETCH_OBJ);
+            
+            $chat="";
+    
+            foreach($rs as $message){
+    
+                // $chat .= $message->message. '<br />';
+                $chat .= '<div class="single-message">
+                <strong>'.$message->user.': </strong>'.$message->message.'
+                </div>';
+            }
+            echo $chat;
         }
+<<<<<<< HEAD
         echo $chat;
 
+=======
+        
+>>>>>>> cc156165a4ed89388f561151ef5001c731977fc8
     break;
 }
 

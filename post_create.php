@@ -16,12 +16,6 @@ function showingProfile()
 
 <body>
 
-<div id="position_log">
-    <div class="logout_btn">
-    <a href="logout.php">Logout</a>
-    </div>
-    </div>
-
     <header></header>
 
     <main></main>

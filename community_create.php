@@ -58,19 +58,25 @@ function createCommunity()
             <a href="community_create.php">
                 <div class="tooltip">
                 <i class="fas fa-plus"></i>
-                    <span class="tooltiptext">Create Community</span>
+                    <span class="tooltiptext">Create Community</span>   
                 </div>
             </a>
+            <a href="direct_messages.php">
+                <div class="tooltip">
+                <i class="fas fa-paper-plane"></i>
+                    <span class="tooltiptext">Messages</span>
+                </div>
         </div>
         <div class="comm_create">
             <h1>Create Community</h1>
             <form action="community_create.php" method="post" class="comm_form">
                 <input type="text" name="name" placeholder="Community name...">
                 <input type="text" name="desc" id="" placeholder="Community description...">
-                <input type="submit" name="submit">
+                <input type="submit" name="submit" value="Create Community">
             </form>
         </div>
 
+    
     
     </body>
 </html>
