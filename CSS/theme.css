@@ -578,8 +578,12 @@ input::-webkit-color-swatch {
 
 .textarea{
     width: 100%;
-    border: 1px solid #b3b3b3b3;
+    border: 1px solid red;
     outline: none;
     padding: 10px;
     margin-top: 10px;
+}
+
+.frnd_list > h5{
+    color: black;
 }
