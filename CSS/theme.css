@@ -600,3 +600,7 @@ input::-webkit-color-swatch {
 .frnd_list > h5{
     color: black;
 }
+
+.body_profile{
+    background-color: slategray;
+}

@@ -166,6 +166,10 @@ if (isset($_POST['no'])) {
         </div>
     </header>
 
+    <div class="logout_btn">
+    <a href="logout.php">Logout</a>
+    </div>
+
     <center><main class="home_main">
         <div id="dropdown">
             <button id="dropbtn">Social</button>
@@ -314,7 +318,7 @@ if (isset($_POST['no'])) {
         
     <footer>
     
-    <a href="logout.php">Logout Here</a>
+   
     </footer>
 </body>
     

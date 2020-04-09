@@ -60,7 +60,7 @@ try {
     <script src="JS/profile_script.js"></script>
 </head>
 
-<body>
+<body class="body_profile">
 
     <header>
         <div id="menu">
