@@ -4,32 +4,102 @@ $user = "root";
 $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
-$social = $pdo->query("SELECT username FROM users");
-$current_user = $pdo->prepare("SELECT username FROM users WHERE id=?");
+
+/**
+ * Database changes
+ * FROM friends
+ * friend_id = id (INT AUTO INCREMENT)
+ * name_requester = id_requester (INT)
+ * name_reciever = id_reciever (INT)
+ */
+
+/*$current_user = $pdo->prepare("SELECT username FROM users WHERE id=?");
 $current_user->execute([$_COOKIE['loggedInUser']]);
-$current_user = $current_user->fetch();
-if (isset($_POST['friend'])) {
-    $send_request = $pdo->prepare("INSERT INTO friends (name_requester, name_receiver) VALUES (?,?)");
-    $send_request->execute([$current_user['username'],$_POST['friend']]);
+$current_user = $current_user->fetch();*/
+try {
+    if (isset($_POST['friend'])) {
+        $friend = $pdo->query("SELECT * FROM users WHERE username = '".$_POST["friend"]."' LIMIT 1");
+        $row = $friend->fetch();
+
+        $user = $pdo->query("SELECT * FROM users WHERE id = ".$_COOKIE["loggedInUser"]);
+        $user = $user->fetch();
+
+        $user_friends_arr = explode("&;", $user["folowing_users"]);
+        if(in_array($row["id"], $user_friends_arr)){
+            //already friends
+            throw new Exception("You are already friends with this person!");
+        }
+        if($row["id"] == $user["id"]) {
+            //friends with yourself
+            throw new Exception("You can't be friends with yourseld!");
+        }
+
+        $send_request = $pdo->prepare("INSERT INTO friends (id_requester, id_receiver) VALUES (".$_COOKIE["loggedInUser"].", ".$row["id"].")");
+        $send_request->execute();
+        /*while($row = $friend->fetch()){
+            echo $row["id"];
+            $send_request = $pdo->prepare("INSERT INTO friends (id_requester, id_receiver) VALUES (".$_COOKIE["loggedInUser"].", ".$row["id"].")");
+            $send_request->execute();
+        }*/
+    }
+} catch(Exception $e) {
+    echo "<h3>".$e->getMessage()."</h3>";
 }
-$friend_request = $pdo->query("SELECT name_requester, name_receiver, status FROM friends");
+
+$friend_request = $pdo->query("SELECT * FROM friends");//WHERE id_reciever = ".$_COOKIE["loggedInUser"]);
 $notifications = $friend_request->fetch();
 $notification = "No new friends :(";
-$user_current = (string)$current_user['username'];
-if ($notifications['name_requester'] == $user_current && $notifications['status'] == false) {
-    $notification = "You sent out a friend request!";
-} if ($notifications['name_receiver'] == $user_current && $notifications['status'] == false) {
-    $notification = "You have a new friend request from " . $notifications['name_requester'] . "! <form method='post'> <input type='submit' name='yes' value='Accept'> <input type='submit' name='no' value='Decline'></form>";
+
+if($notifications) {
+    if ($notifications['id_requester'] == $_COOKIE["loggedInUser"]) {
+        $notification = "You sent out a friend request!";
+    } if ($notifications['id_receiver'] == $_COOKIE['loggedInUser']) {
+        $friend = $pdo->query("SELECT * FROM users WHERE id = ".$notifications["id_requester"]);
+        $friend = $friend->fetch();
+        $notification = "You have a new friend request from " . $friend["username"] . "! <form method='post' action='index.php?pass=".$_GET["pass"]."&friend_id=".$notifications["id"]."'> <input type='submit' name='yes' value='Accept'> <input type='submit' name='no' value='Decline'></form>";
+    }
 }
+
 if (isset($_POST['yes'])) {
     $status = true;
-    $Accept = $pdo->prepare("UPDATE friends SET status=? WHERE name_receiver=?");
-    $Accept->execute([$status, $current_user['username']]);
+
+    /*$add_friend = $pdo->prepare("UPDATE friends SET status=? WHERE name_receiver=?");
+    $add_friend->execute([$status, $current_user['username']]);*/
+
+    $user = $pdo->query("SELECT * FROM users WHERE id = ".$_COOKIE["loggedInUser"]);
+    $user = $user->fetch();
+
+    $request = $pdo->query("SELECT * FROM friends WHERE id = ".$_GET["friend_id"]);
+    $request = $request->fetch();
+
+    $friend = $pdo->query("SELECT * FROM users WHERE id = ".$request["id_requester"]);
+    $friend = $friend->fetch();
+
+
+    $friends_arr = explode("&;", $user["folowing_users"]);
+    array_push($friends_arr, $friend["id"]);
+    $friends_str = implode("&;", $friends_arr);
+
+    $add_friend = $pdo->prepare("UPDATE users SET folowing_users = '$friends_str' WHERE id = ".$user["id"]);
+    $add_friend->execute();
+
+
+    $friends_arr = explode("&;", $friend["folowing_users"]);
+    array_push($friends_arr, $user["id"]);
+    $friends_str = implode("&;", $friends_arr);
+
+    $add_friend = $pdo->prepare("UPDATE users SET folowing_users = '$friends_str' WHERE id = ".$friend["id"]);
+    $add_friend->execute();
+
+
+    $delete_request = $pdo->prepare("DELETE FROM friends WHERE id = ".$_GET["friend_id"]);
+    $delete_request->execute();
+
     $notification="No new friends :(";
-} if (isset($_POST['no'])) {
-    $status = false;
-    $Decline = $pdo->prepare("DELETE FROM friends WHERE status=? AND WHERE name_receiver=?");
-    $Decline->execute([$status, $current_user['username']]);
+}
+if (isset($_POST['no'])) {
+    $delete_request = $pdo->prepare("DELETE FROM friends WHERE id = ".$_GET["friend_id"]);
+    $delete_request->execute();
 }
 ?>
 
@@ -87,19 +157,25 @@ if (isset($_POST['yes'])) {
                     <div>
                             <?php
                             if ($_GET['pass'] == 'FR') {
-                                echo '  <form method="post">
-                                            <input type="text" name="friend" placeholder="Add a new friend!">
-                                            <input type="submit" name="submitfriend" value="Add!">
-                                        </form>';
-                                while ($friends = $social->fetch()) {
-                                    echo '<div class="menu">';
-                                    echo $friends['username'];
-                                    echo '</div>';
+                                ?>
+                                <form method="post">
+                                    <input type="text" name="friend" placeholder="Add a new friend!">
+                                    <input type="submit" name="submitfriend" value="Add!">
+                                </form>
+                                <?php
+                                $social = $pdo->query("SELECT * FROM users");
+                                while ($row = $social->fetch()) {
+                                    $friends_arr = explode("&;", $row["folowing_users"]);
+                                    if(in_array($_COOKIE["loggedInUser"], $friends_arr)) {
+                                        ?>
+                                        <div class="menu" onclick="location.href='profile.php?user=<?= $row['id']?>';">
+                                            <?= $row['username']?>
+                                        </div>
+                                        <?php
+                                    }
                                 }
                             } else if ($_GET['pass'] == 'DM') {
-                                while ($friends = $social->fetch()) {
-                                    echo "Work in progress";
-                                }
+                                echo "Work in progress";
                             } else if ($_GET['pass'] == 'FRR') {
                                 echo $notification;
                             }
