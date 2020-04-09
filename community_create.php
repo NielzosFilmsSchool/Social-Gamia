@@ -58,9 +58,14 @@ function createCommunity()
             <a href="community_create.php">
                 <div class="tooltip">
                 <i class="fas fa-plus"></i>
-                    <span class="tooltiptext">Create Community</span>
+                    <span class="tooltiptext">Create Community</span>   
                 </div>
             </a>
+            <a href="direct_messages.php">
+                <div class="tooltip">
+                <i class="fas fa-paper-plane"></i>
+                    <span class="tooltiptext">Messages</span>
+                </div>
         </div>
         <div class="comm_create">
             <h1>Create Community</h1>
