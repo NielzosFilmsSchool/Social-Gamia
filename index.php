@@ -1,4 +1,5 @@
 <?php
+session_start();
 $dsn = "mysql:host=localhost;dbname=social_gamia";
 $user = "root";
 $passwd = "";
@@ -197,7 +198,26 @@ if (isset($_POST['no'])) {
                                     }
                                 }
                             } else if ($_GET['pass'] == 'DM') {
-                                echo "Work in progress";
+
+                                $chat_frnds = $pdo->query("SELECT * FROM users");
+                                while ($row = $chat_frnds->fetch()) {
+                                    $friends_arr = explode("&;", $row["folowing_users"]);
+                                    if(in_array($_COOKIE["loggedInUser"], $friends_arr)) {
+                                        ?>
+                                        <!-- onclick="location.href='profile.php?user= $row['id']?>';" -->
+                                        <div class="menu">
+                                            <div class="frnd_list">
+                                           <h5> <?= $row['username']?> </h5>
+                                        </div>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                echo '<div class="chat_wrapper">
+                                <div id="chat"></div>
+                                <form method="POST" id="messageForm"> 
+                                    <textarea name="message"  cols="30" rows="7" class="textarea"></textarea>
+                                </div>';
                             } else if ($_GET['pass'] == 'FRR') {
                                 echo $notification;
                             }
@@ -313,6 +333,38 @@ if (isset($_POST['no'])) {
     </main></center>
         
     <footer>
+    <script>
+
+LoadChat();
+function LoadChat(){
+        $.post('messages.php?action=getMessages', function(response){
+            $('#chat').html(response);
+
+
+    });                
+
+}
+$('.textarea').keyup(function(e){
+    if(e.which == 13){
+        $('form').submit();
+    }
+});
+
+
+$('form').submit(function(){
+    // alert("form is submitted by jquery");
+    var message =   $('.textarea').val();
+    $.post('messages.php?action=sendMessage&message='+message, function(response){
+        if(response ==1){
+            LoadChat();
+            document.getElementById('messageForm').reset();
+            
+        }
+    });
+
+    return false;
+});
+</script>
     
     <a href="logout.php">Logout Here</a>
     </footer>

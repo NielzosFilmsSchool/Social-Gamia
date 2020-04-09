@@ -620,3 +620,8 @@ input::-webkit-color-swatch {
 .frnd_list > h5{
     color: black;
 }
+
+.question {
+    width: 60%;
+    text-align: left;
+}
