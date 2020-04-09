@@ -5,6 +5,10 @@ $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
 
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 // DELETE FROM communities WHERE community_id = 
 
 try {

@@ -1,4 +1,8 @@
 <?php
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 class User
 {
     public $id;
@@ -91,7 +95,7 @@ try {
         <?php
         if($user->id == $_COOKIE["loggedInUser"]) {
         ?>
-            <a class="edit_account" href="account_edit.php?user_id=<?= $user->id?>">Edit account</a>
+            <a class="edit_account" href="account_edit.php?user_id=<?= $user->id?>"> Edit account <div class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div></a>
         <?php
         }
 
@@ -119,7 +123,7 @@ try {
                         <h1 id="profile_page_title"><?= $row["title"]?></h1>
                     </div>
                     <!-- PROFILE PAGE CONTENT START -->
-                    <div id="profile_page_content">
+                    <div id="profile_page_content" class="">
                         <?php
                         $html = $row["html"];
                         if($user->id != $_COOKIE["loggedInUser"]) {
@@ -135,22 +139,32 @@ try {
                 if($user->id == $_COOKIE["loggedInUser"]) {
                     ?>
                     <div class="profile_page_controls">
-                        <select id="element_to_add" class="blue padding">
+                        <select id="element_to_add" class="blue padding" onchange="selectChange()">
                             <option value="text">Text</option>
                             <option value="h1">Title</option>
                             <option value="h3">Header</option>
                             <option value="ul">Unordered list</option>
                             <option value="ol">Ordered list</option>
+                            <option value="img">Image</option>
                         </select>
                         <br>
-                        <label for="text_color">Text: </label>
-                        <input type="color" id="text_color" class="blue padding">
-                        <br>
-                        <label for="bg_color">Background: </label>
-                        <input type="color" id="bg_color" class="blue padding" value="#ffffff">
-                        <br>
-                        <button class="margin_top blue padding" onclick="addHtml()">Add selected element</button>
-                        <br>
+                        <div id="color_options">
+                            <label for="text_color">Text: </label>
+                            <input type="color" id="text_color" class="blue padding">
+                            <br>
+                            <label for="bg_color">Background: </label>
+                            <input type="color" id="bg_color" class="blue padding" value="#ffffff">
+                            <br>
+                            <button class="margin_top blue padding" onclick="addHtml()">Add selected element</button>
+                            <br>
+                        </div>
+                        <div id="image_options" style="display:none;">
+                            <form action="profile.php?user=<?= $_GET["user"]?>" method="post" enctype="multipart/form-data">
+                                <input class="blue padding" type="file" name="fileToUpload"><br>
+                                <label for="width_val">Image Width(%): </label><input class="blue padding" type="number" name="width_val" id="width_val" style="width:50px;" value="100" min="10" max="100" step="5"><br>
+                                <input class="margin_top blue padding" type="submit" name="file_submit" value="Add selected element">
+                            </form>
+                        </div>
                         <button class="green padding" onclick="getHtml(<?= $_GET['user']?>)">Save changes</button>
                     </div>
                     <?php
@@ -180,6 +194,84 @@ if(isset($_POST["profile_html"]) && $user->id == $_COOKIE["loggedInUser"]) {
         WHERE id = ".$profile_id
     );
     $stmt->execute();
-    header("Refresh:1");
+    header("Refresh:0");
 }
+
+if(isset($_POST["file_submit"]) && isset($_POST["width_val"])){
+    if($_POST["width_val"] < 10 || $_POST["width_val"] > 100) {
+        return;
+    }
+    $target_dir = "UPLOADS/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        ?>
+        <script>
+            var container = document.getElementById("profile_page_content");
+
+            var html = '<div class="margin_top relative inline-block" id="profile_content_div" style="width: <?= $_POST["width_val"]?>%;">';
+            html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
+
+            html += '<img src="<?= $target_file?>" width="100%;">';
+
+            html += '</div>';
+            container.innerHTML += html;
+        </script>
+        <?php
+        return;
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 1000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            ?>
+            <script>
+                var container = document.getElementById("profile_page_content");
+
+                var html = '<div class="margin_top relative inline-block" id="profile_content_div"> style="width: <?= $_POST["width_val"]?>%;"';
+                html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
+
+                html += '<img src="<?= $target_file?>" style="width: width:100%;">';
+
+                html += '</div>';
+                container.innerHTML += html;
+            </script>
+            <?php
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+}
+
 ?>

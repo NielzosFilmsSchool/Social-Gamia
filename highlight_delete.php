@@ -5,6 +5,10 @@ $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
 
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
+
 try {
     $stmt = $pdo->query('SELECT * FROM highlight_posts WHERE id = '.$_GET["id"]);
     if($stmt->rowCount() == 0) {

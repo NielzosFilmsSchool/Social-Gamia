@@ -1,4 +1,5 @@
 <?php
+
 function loggingIn() 
 {
     $dsn = "mysql:host=localhost;dbname=social_gamia";

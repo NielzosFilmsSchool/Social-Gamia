@@ -4,6 +4,10 @@ $user = "root";
 $passwd = "";
 
 $pdo = new PDO($dsn, $user, $passwd);
+
+if(!isset($_COOKIE["loggedInUser"])) {
+    header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,16 +106,26 @@ $pdo = new PDO($dsn, $user, $passwd);
             <?php
             
             while($row = $stmt->fetch()) {
+                $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$row["user_id"]);
+                $user = $user_query->fetch();
+
                 $time_input = strtotime($row["post_date"]);
                 $date = date("d-M-Y", $time_input);
                 $time = date("H:i:s", $time_input);
                 ?>
                 <div class="highlight">
                     <h2> <?= $row["caption"] ?> </h2>
+                    <a href="profile.php?user=<?= $user["id"]?>"><?= $user["username"]?></a>
                     <p><?= $row["description"]?></p>
                     <label class="highlight_date"><?= $date?></label>
                     <label class="highlight_date" style="top: 60px;"><?= $time?></label>
-                    <img class="highlight_img" src="IMG/img-test.jpg" alt="Photo">
+                    <?php
+                    if(!empty($row["file_path"])) {
+                        ?>
+                        <img class="highlight_img" src="<?= $row["file_path"]?>" alt="Photo">
+                        <?php
+                    }
+                    ?>
                     <label class="highlight_likes"><?= $row["likes"] ?> Likes</label>
                     <?php
                     if($row["user_id"] == $_COOKIE["loggedInUser"]) {
@@ -133,10 +147,56 @@ $pdo = new PDO($dsn, $user, $passwd);
 
             ?>
             </div>
+            <div class="comments">
+                <div class="controls">
+                    <form action="highlight_details.php?community_id=<?= $_GET["community_id"]?>&id=<?= $_GET["id"]?>" method="post" id="add_comment">
+                        <textarea name="comment_text" form="add_comment"></textarea>
+                        <input class="green" name="submit_comment" type="submit" value="Comment">
+                    </form>
+                </div>
+
+                <?php
+                $comment_query = $pdo->query('SELECT * FROM comments WHERE highlight_id = '.$_GET["id"].' ORDER BY date DESC');
+                if($comment_query->rowCount() == 0) {
+                    throw new Exception("No comments found!");
+                }
+                while($comment = $comment_query->fetch()) {
+                    $user_query = $pdo->query('SELECT * FROM users WHERE id = '.$comment["user_id"]);
+                    $user = $user_query->fetch();
+
+                    $time_input = strtotime($comment["date"]);
+                    $date = date("d-M-Y", $time_input);
+                    $time = date("H:i:s", $time_input);
+                    ?>
+                    <table class="comments_table">
+                        <tr>
+                            <td class="border_bottom padding" style="position:relative;">
+                                <p><?= $comment["text"]?></p>
+                                <a href="profile.php?user=<?= $user["id"]?>"><?= $user["username"]?></a>
+                                <label> at: <?= $date?> <?= $time?></label>
+
+                                <?php
+                                if($comment["user_id"] == $_COOKIE["loggedInUser"]) {
+                                    ?>
+                                    <form action="highlight_details.php?community_id=<?= $_GET["community_id"]?>&id=<?= $_GET["id"]?>" method="post" id="remove_comment" style="position:absolute;top:20px;right:20px;">
+                                        <input type="hidden" name="id" value="<?= $comment["id"]?>">
+                                        <input class="danger" name="delete_comment" type="submit" value="Delete Comment">
+                                    </form>
+                                    <?php
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    </table>
+                    <?php
+                }
+                ?>
+
+            </div>
             <?php
 
         } catch(Exception $e) {
-            echo "<h3>$e</h3>";
+            echo "<h3>".$e->getMessage()."</h3>";
         }
         ?>
 
@@ -146,3 +206,28 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 </body>
 </html>
+
+<?php
+
+if(isset($_POST["submit_comment"]) && !empty($_POST["comment_text"])) {
+    $date = date("Y-m-d H:i:s");
+    $stmt = $pdo->prepare(
+        "INSERT INTO comments (text, user_id, date, highlight_id)
+        VALUES ('".$_POST["comment_text"]."', ".$_COOKIE["loggedInUser"].", '$date', ".$_GET["id"].")"
+    );
+    $stmt->execute();
+    header('Location: highlight_details.php?community_id='.$_GET["community_id"].'&id='.$_GET["id"]);
+}
+
+if(isset($_POST["delete_comment"])) {
+    $comment_query = $pdo->query('SELECT * FROM comments WHERE id = '.$_POST["id"]);
+    $comment = $comment_query->fetch();
+
+    if($_COOKIE["loggedInUser"] != $comment["user_id"]) {
+        return;
+    }
+
+    $stmt = $pdo->prepare("DELETE FROM comments WHERE id = ".$_POST["id"]);
+    $stmt->execute();
+    header('Location: highlight_details.php?community_id='.$_GET["community_id"].'&id='.$_GET["id"]);
+}
