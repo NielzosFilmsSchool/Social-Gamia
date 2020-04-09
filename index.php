@@ -122,7 +122,7 @@ if (isset($_POST['no'])) {
     <script src="JS/script.js"></script>
 </head>
 
-<body>
+<body class="home_body">
 
     <header>
         <div id="menu">

@@ -28,7 +28,7 @@ function showingProfile()
 
 </head>
 
-<body>
+<body class="dm_body">
 
 
 
@@ -117,7 +117,7 @@ session_start();
         
         
             $user_name= $_COOKIE["loggedInUser"];
-            echo "user_name=$user_name 'MyChat";
+            // echo "user_name=$user_name 'MyChat";
 
             $chat_frnds = $pdo->query("SELECT * FROM users");
                                 while ($row = $chat_frnds->fetch()) {
