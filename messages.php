@@ -13,10 +13,13 @@ $pdo = new PDO($dsn, $user, $passwd);
 
 // Database
 // id =int| user = varchar| message= text| date = timestamp
+$current_user = $pdo->prepare("SELECT username from users where id=?");
+$current_user->execute([$_COOKIE['loggedInUser']]);
+$current_user = $current_user->fetch();
 session_start();
-    
 
-   $_SESSION['User']= $_COOKIE["loggedInUser"];
+
+   $_SESSION['User']= $current_user['username'];
 
 // $con = mysqli_connect("localhost","root","", "social_gamia") or die("Didnt Work");
 // $get_user = "select * from users where username='$userlog";
