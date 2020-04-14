@@ -118,6 +118,8 @@ if (isset($_POST['no'])) {
 <head>
     <title>Social Gamia | Home</title>
     <link rel="stylesheet" type="text/css" href="CSS/theme.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="CSS/theme.css">
     <script src="https://kit.fontawesome.com/82664ff85a.js" crossorigin="anonymous"></script>
     <script src="JS/script.js"></script>
 </head>
@@ -166,6 +168,11 @@ if (isset($_POST['no'])) {
             </a>
         </div>
     </header>
+    <div id="position_log">
+    <div class="logout_btn">
+    <a href="logout.php">Logout</a>
+    </div>
+    </div>
 
     <center><main class="home_main">
         <div id="dropdown">
@@ -198,7 +205,50 @@ if (isset($_POST['no'])) {
                                     }
                                 }
                             } else if ($_GET['pass'] == 'DM') {
+                                ?>
+                                <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+                                <script>
+                                LoadChat();
+                                function LoadChat(){
+                                        $.post('messages.php?action=getMessages', function(response){
+                                            $('#chat').html(response);
 
+
+                                    });                
+
+                                }
+                                $('.textarea').keyup(function(e){
+                                    if(e.which == 13){
+                                        $('#messageForm').submit();
+                                    }
+                                });
+
+
+                                $('#messageForm').submit(function(){
+                                    // alert("form is submitted by jquery");
+                                    var message =   $('.textarea').val();
+                                    $.post('messages.php?action=sendMessage&message='+message, function(response){
+                                        if(response ==1){
+                                            LoadChat();
+                                            document.getElementById('messageForm').reset();
+                                            
+                                        }
+                                    });
+                                
+                                $('#selector').click(function(){
+                                    var username = $('#selector').val();
+                                    $.post('messages.php?actions=getMessages$filter='+username, function(response){
+                                        if(response ==2){
+                                            loadChat();
+                                            document.getElementById('messageForm').reset();
+                                        }
+                                    }
+                                }
+
+                                    return false;
+                                });
+                                </script>
+                                <?php
                                 $chat_frnds = $pdo->query("SELECT * FROM users");
                                 while ($row = $chat_frnds->fetch()) {
                                     $friends_arr = explode("&;", $row["folowing_users"]);
@@ -207,17 +257,19 @@ if (isset($_POST['no'])) {
                                         <!-- onclick="location.href='profile.php?user= $row['id']?>';" -->
                                         <div class="menu">
                                             <div class="frnd_list">
-                                           <h5> <?= $row['username']?> </h5>
+                                           <h5><a id="selector"> <?= $row['username']?> </a></h5>
                                         </div>
                                         </div>
                                         <?php
                                     }
                                 }
-                                echo '<div class="chat_wrapper">
+                                ?>
+                                <div class="chat_wrapper">
                                 <div id="chat"></div>
                                 <form method="POST" id="messageForm"> 
                                     <textarea name="message"  cols="30" rows="7" class="textarea"></textarea>
-                                </div>';
+                                </div>
+                                <?php
                             } else if ($_GET['pass'] == 'FRR') {
                                 echo $notification;
                             }
@@ -333,40 +385,10 @@ if (isset($_POST['no'])) {
     </main></center>
         
     <footer>
-    <script>
-
-LoadChat();
-function LoadChat(){
-        $.post('messages.php?action=getMessages', function(response){
-            $('#chat').html(response);
-
-
-    });                
-
-}
-$('.textarea').keyup(function(e){
-    if(e.which == 13){
-        $('form').submit();
-    }
-});
-
-
-$('form').submit(function(){
-    // alert("form is submitted by jquery");
-    var message =   $('.textarea').val();
-    $.post('messages.php?action=sendMessage&message='+message, function(response){
-        if(response ==1){
-            LoadChat();
-            document.getElementById('messageForm').reset();
-            
-        }
-    });
-
-    return false;
-});
-</script>
     
     <a href="logout.php" class="logout">Logout Here</a>
+    
+   
     </footer>
 </body>
     

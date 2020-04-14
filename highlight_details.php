@@ -20,6 +20,11 @@ if(!isset($_COOKIE["loggedInUser"])) {
 </head>
 
 <body>
+    <div id="position_log">
+        <div class="logout_btn">
+        <a href="logout.php">Logout</a>
+        </div>
+    </div>
 
     <div id="menu">    
         <a href="index.php">

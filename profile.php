@@ -60,8 +60,16 @@ try {
     <script src="JS/profile_script.js"></script>
 </head>
 
-<body>
+<body class="body_profile">
 
+
+<div id="position_log">
+    <div class="logout_btn">
+    <a href="logout.php">Logout</a>
+    </div>
+    </div>
+
+    
     <header>
         <div id="menu">
             <a href="index.php">

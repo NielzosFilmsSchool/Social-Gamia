@@ -23,7 +23,11 @@ if(!isset($_COOKIE["loggedInUser"])) {
 <body class="comm_body">
 
 
-
+<div id="position_log">
+    <div class="logout_btn">
+    <a href="logout.php">Logout</a>
+    </div>
+</div>
 
     <header>
         <div id="menu">
