@@ -366,7 +366,7 @@ $('form').submit(function(){
 });
 </script>
     
-    <a href="logout.php">Logout Here</a>
+    <a href="logout.php" class="logout">Logout Here</a>
     </footer>
 </body>
     

@@ -625,3 +625,17 @@ input::-webkit-color-swatch {
     width: 60%;
     text-align: left;
 }
+
+.home_main {
+    width: 1300px;
+    height: 795px;
+}
+
+.logout {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    position: absolute;
+    right: 200px;
+    top: 100px;
+}
