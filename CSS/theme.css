@@ -23,6 +23,17 @@ body {
     align-items: center;
     flex-direction: column;
     height: 800px;
+    color: white;
+}
+
+body {
+    background-image: url("../IMG/img-test.jpg");
+    background-size: 100%;
+    color: white;
+}
+
+a {
+    color: rgb(46, 194, 243);
 }
 
 .login_container, .register_container, .pass_recover ,.reset_container {
@@ -255,11 +266,11 @@ i {
 }
 .communities_container {
     width: 50%;
-    border: 1px solid gray;
+    border: 1px solid white;
 }
 .feed_container {
     width: 50%;
-    border: 1px solid gray;
+    border: 1px solid white;
 }
 
 .edit_community {
@@ -301,8 +312,8 @@ i {
     width: 80%;
     margin-right: auto;
     margin-left: auto;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
 }
 .edit_account {
     position: absolute;
@@ -450,15 +461,15 @@ i {
 .highlights_container {
     margin-top: 20px;
     width: 60%;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
 }
 .highlight {
     padding: 20px;
     width: 90%;
     text-align: left;
     position: relative;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid white;
 }
 .highlight_date {
     position: absolute;
@@ -507,7 +518,7 @@ i {
 .index_table_item {
     padding: 20px;
     width: 100%;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid white;
 }
 
 .customize-btn:hover{
@@ -515,11 +526,12 @@ i {
 }
 
 .profile_page_controls{
-    border: black 4px solid;
-    background-color: 	#DCDCDC;
+    border: white 1px solid;
+    background-color: 	rgb(44, 44, 44);
     width: 30%;
     justify-content: center;
     align-items:center;
+    color: white;
 }
 
 .flex {
@@ -533,7 +545,7 @@ i {
 }
 
 .border_bottom {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid white;
 }
 
 .comments_table {
@@ -601,7 +613,7 @@ input::-webkit-color-swatch {
 #chat{
     min-height: 500px;
     background: white;
-    border: 1px solid #b3b3b3b3;
+    border: 1px solid white;
     padding:10px;
     width: 1000px;
     color: black;

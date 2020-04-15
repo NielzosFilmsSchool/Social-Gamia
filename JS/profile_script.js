@@ -14,23 +14,27 @@ function addHtml() {
     var selected = document.getElementById("element_to_add").value;
     var color = document.getElementById("text_color").value;
     var bg_color = document.getElementById("bg_color").value;
-    var container = document.getElementById("profile_page_content");
+    var bg_active = document.getElementById("bg_on").checked;
+    var bg_string = 'background-color:'+bg_color
+    if(!bg_active) {
+        bg_string = "";
+    }
 
-    console.log(color);
+    var container = document.getElementById("profile_page_content");
 
     var html = '<div class="margin_top relative" id="profile_content_div">';
     html += '<button class="delete danger padding" onclick="deleteHtml(this)">Delete</button>';
 
     if(selected == "text"){
-        html += '<div contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Text...</div>';
+        html += '<div contenteditable="true" class="padding" style="color:'+color+';'+bg_string+'">Text...</div>';
     }else if(selected == "h1"){
-        html += '<h1 contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Title...</h1>';
+        html += '<h1 contenteditable="true" class="padding" style="color:'+color+';'+bg_string+'">Title...</h1>';
     }else if(selected == "h3"){
-        html += '<h3 contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'">Header...</h3>';
+        html += '<h3 contenteditable="true" class="padding" style="color:'+color+';'+bg_string+'">Header...</h3>';
     }else if(selected == "ul") {
-        html += '<ul contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'"><li></li></ul>';
+        html += '<ul contenteditable="true" class="padding" style="color:'+color+';'+bg_string+'"><li></li></ul>';
     }else if(selected == "ol") {
-        html += '<ol contenteditable="true" class="padding" style="color:'+color+';background-color:'+bg_color+'"><li></li></ol>';
+        html += '<ol contenteditable="true" class="padding" style="color:'+color+';'+bg_string+'"><li></li></ol>';
     }
     html += '</div>';
     container.innerHTML += html;

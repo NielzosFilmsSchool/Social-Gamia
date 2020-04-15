@@ -60,7 +60,7 @@ try {
     <script src="JS/profile_script.js"></script>
 </head>
 
-<body class="body_profile">
+<body class="">
 
 
 <div id="position_log">
@@ -166,6 +166,7 @@ try {
                             <input type="color" id="text_color" class="blue padding">
                             <br>
                             <label for="bg_color">Background: </label>
+                            <input type="checkbox" id="bg_on" class="blue padding" style="width:15px;height:15px">
                             <input type="color" id="bg_color" class="blue padding" value="#ffffff">
                             <br>
                             <button class="margin_top blue padding" onclick="addHtml()">Add selected element</button>
