@@ -1,5 +1,7 @@
 <?php
-
+if(isset($_COOKIE["loggedInUser"])) {
+    header('Location: index.php?pass=FR');
+}
 function loggingIn() 
 {
     $dsn = "mysql:host=localhost;dbname=social_gamia";

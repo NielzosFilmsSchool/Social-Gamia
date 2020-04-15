@@ -101,6 +101,7 @@ try {
                 <i class="fas fa-paper-plane"></i>
                     <span class="tooltiptext">Messages</span>
                 </div>
+            </a>
         </div>
     </header>
 

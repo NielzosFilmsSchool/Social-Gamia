@@ -355,7 +355,7 @@ if (isset($_POST['no'])) {
                                 <br>
                                 <label><?= $date?> <?= $time?></label>
                                 <br>
-                                <label><?= $friend["username"]?></label>
+                                <a href="profile.php?user=<?= $friend["id"]?>"><?= $friend["username"]?></a>
                             </td>
                         </tr>
                         <?php
