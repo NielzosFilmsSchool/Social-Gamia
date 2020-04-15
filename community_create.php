@@ -66,6 +66,7 @@ function createCommunity()
                 <i class="fas fa-paper-plane"></i>
                     <span class="tooltiptext">Messages</span>
                 </div>
+            </a>
         </div>
         <div class="comm_create">
             <h1>Create Community</h1>
