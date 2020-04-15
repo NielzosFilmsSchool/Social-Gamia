@@ -168,11 +168,8 @@ if (isset($_POST['no'])) {
             </a>
         </div>
     </header>
-    <div id="position_log">
-    <div class="logout_btn">
-    <a href="logout.php">Logout</a>
-    </div>
-    </div>
+
+    <a href="logout.php" class="logout logout_btn">Logout Here</a>
 
     <center><main class="home_main">
         <div id="dropdown">
@@ -386,7 +383,7 @@ if (isset($_POST['no'])) {
         
     <footer>
     
-    <a href="logout.php" class="logout">Logout Here</a>
+    
     
    
     </footer>

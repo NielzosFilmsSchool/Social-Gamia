@@ -639,9 +639,7 @@ input::-webkit-color-swatch {
 
 
 .logout_btn{
-    padding: 20px;
-    width: 50px;
-    height: 20px;
+    padding: 15px;
     background-color:  #19a7df;
     border-radius: 10px;
 }
