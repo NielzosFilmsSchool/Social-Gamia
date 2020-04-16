@@ -46,8 +46,8 @@ function registeringUser()
             	<form id="register" method="post">
                     <input type="email" name="email" placeholder="Email">
                     <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="password" placeholder="Password" onchange="checkPass()">
-                    <input type="password" name="passwordCheck" placeholder="Confirm password" onchange="checkPass()">
+                    <input type="password" name="password" placeholder="Password" onkeyup="checkPass()">
+                    <input type="password" name="passwordCheck" placeholder="Confirm password" onkeyup="checkPass()">
 
                     <?php
                         try {

@@ -14,6 +14,7 @@ function resettingPassword()
             $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $check_attempt = $pdo->prepare("UPDATE users SET password = ? WHERE email=?;");
             $check_attempt->execute([$hash, $_GET['emailreset']]);
+            header('Location: login.php');
         } else if (!isset($_POST['submitpassword'])) {
             throw new Exception("Something went wrong with the communication");
         }
@@ -39,8 +40,8 @@ function resettingPassword()
         </header>
         
             <form id="register" method="post">
-                <input type="password" name="password" placeholder="New password" onchange="checkPass()">
-                <input type="password" name="passwordCheck" placeholder="Confirm new password" onchange="checkPass()">
+                <input type="password" name="password" placeholder="New password" onkeyup="checkPass()">
+                <input type="password" name="passwordCheck" placeholder="Confirm new password" onkeyup="checkPass()">
                 <input class="disable" type="submit" name="submitpassword" value="Reset password">
             </form>
 

@@ -63,21 +63,22 @@ function showingProfile()
                 <i class="fas fa-plus"></i>
                     <span class="tooltiptext">Create Community</span>
                 </div>
+            </a>
 
                 <a href="direct_messages.php">
                 <div class="tooltip">
                 <i class="fas fa-paper-plane"></i>
                     <span class="tooltiptext">Messages</span>
                 </div>
-
-                <a href="friends.php">
+                </a>
+                <!--<a href="friends.php">
                 <div class="tooltip">
                 <i class="fas fa-users"></i>
                     <span class="tooltiptext">Friends</span>
                 </div>
 
                 
-            </a>
+            </a>-->
         </div>
     </header>
 

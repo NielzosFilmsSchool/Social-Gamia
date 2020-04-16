@@ -159,14 +159,14 @@ if (isset($_POST['no'])) {
                     </div>
                 </a>
 
-                <a href="community_create.php">
+                <!--<a href="community_create.php">
                     <div class="tooltip">
                     <i class="fas fa-users"></i>
                         <span class="tooltiptext">Friends</span>
                     </div>
 
                 
-                </a>
+                </a>-->
         </div>
     </header>
 

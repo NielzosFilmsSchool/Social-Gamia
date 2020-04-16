@@ -129,11 +129,18 @@ if(isset($_POST["submit"])){
     // Check if file already exists
     if (file_exists($target_file)) {
         echo "Sorry, file already exists.";
+        $date = date("Y-m-d H:i:s");
+        $stmt = $pdo->prepare(
+            "INSERT INTO highlight_posts (user_id, caption, description, likes, community_id, post_date, file_path)
+            VALUES ('".$_COOKIE["loggedInUser"]."', '".$_POST["caption"]."', '".$_POST["desc"]."', 0, '".$_GET["community_id"]."', '$date', '$target_file')"
+        );
+        $stmt->execute();
+        header('Location: community_highlights.php?community_id='.$_GET["community_id"]);
         $uploadOk = 0;
     }
 
     // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 1000000) {
+    if ($_FILES["fileToUpload"]["size"] > 10000000) { //10mb
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }

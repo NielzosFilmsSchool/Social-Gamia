@@ -46,6 +46,12 @@ if(!isset($_COOKIE["loggedInUser"])) {
                 <span class="tooltiptext">Create Community</span>
             </div>
         </a>
+        <a href="direct_messages.php">
+                <div class="tooltip">
+                <i class="fas fa-paper-plane"></i>
+                    <span class="tooltiptext">Messages</span>
+                </div>
+                </a>
     </div>
 
     <center><header class="community_header">
